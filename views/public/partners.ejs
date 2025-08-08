@@ -1,0 +1,93 @@
+<%- include('../partials/header', { title }) %>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Our Partners</h1>
+      <p>Working together with organizations and individuals who share our vision of transforming lives through education</p>
+    </div>
+  </div>
+</section>
+
+<!-- Partners Grid -->
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Organizations Supporting Our Mission</h2>
+      <p>We're grateful to work alongside these amazing partners who help us expand our reach and impact</p>
+    </div>
+
+    <% if (rows && rows.length > 0) { %>
+      <div class="grid-3">
+        <% rows.forEach(partner => { %>
+          <div class="card text-center">
+            <% if (partner.logo_path) { %>
+              <img src="<%= partner.logo_path %>" alt="<%= partner.name %>" style="max-height: 80px; width: auto; margin-bottom: 1rem;" />
+            <% } else { %>
+              <div style="width: 80px; height: 80px; background: var(--primary-yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
+                🤝
+              </div>
+            <% } %>
+            <h3><%= partner.name %></h3>
+            <% if (partner.url) { %>
+              <p><a href="<%= partner.url %>" target="_blank" style="color: var(--primary-yellow); text-decoration: none;">Visit Website →</a></p>
+            <% } %>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <!-- Default Partners when none exist -->
+      <div class="grid-3">
+        <div class="card text-center">
+          <div style="width: 80px; height: 80px; background: var(--primary-yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
+            🏢
+          </div>
+          <h3>Corporate Partners</h3>
+          <p>Companies that support our mission through CSR initiatives, funding, and employee volunteer programs.</p>
+          <div style="margin-top: 1.5rem;">
+            <span class="btn" style="background: var(--light-gray); color: var(--text-gray); cursor: default;">Coming Soon</span>
+          </div>
+        </div>
+
+        <div class="card text-center">
+          <div style="width: 80px; height: 80px; background: var(--success-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem; color: white;">
+            🎓
+          </div>
+          <h3>Educational Institutions</h3>
+          <p>Schools, colleges, and universities that collaborate with us on educational programs and student exchange initiatives.</p>
+          <div style="margin-top: 1.5rem;">
+            <span class="btn" style="background: var(--light-gray); color: var(--text-gray); cursor: default;">Coming Soon</span>
+          </div>
+        </div>
+
+        <div class="card text-center">
+          <div style="width: 80px; height: 80px; background: var(--secondary-yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">
+            🏛️
+          </div>
+          <h3>Government Agencies</h3>
+          <p>Local and state government departments that support our community development and education initiatives.</p>
+          <div style="margin-top: 1.5rem;">
+            <span class="btn" style="background: var(--light-gray); color: var(--text-gray); cursor: default;">Coming Soon</span>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<!-- Become a Partner -->
+<section class="section" style="background: linear-gradient(135deg, var(--primary-yellow), var(--secondary-yellow)); color: var(--dark-blue);">
+  <div class="container">
+    <div class="text-center">
+      <h2 style="color: var(--dark-blue);">Become Our Partner</h2>
+      <p style="color: var(--dark-blue); opacity: 0.8; font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem;">Ready to make a difference? Let's explore how we can work together to transform lives through education.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="/contact" class="btn" style="background: var(--dark-blue); color: var(--white);">Discuss Partnership</a>
+        <a href="/#donate" class="btn" style="background: var(--white); color: var(--dark-blue);">Support Our Work</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

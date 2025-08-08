@@ -1,0 +1,258 @@
+<%- include('../partials/header', { title }) %>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Where Learning Knows No Boundaries</h1>
+      <p>Join us in our mission to break the barriers of education in underserved communities. With your support, we can provide quality education to children living in slum areas, empowering them with the knowledge and skills they need to build a brighter future.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+        <a class="btn" href="#donate" style="background: var(--dark-blue); color: var(--white);">Donate Now</a>
+        <a class="btn" href="#volunteer">Join Our Team</a>
+        <a class="btn" href="/about">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Impact Stats -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <h3 data-target="31245">0</h3>
+        <p>Lives Changed</p>
+      </div>
+      <div class="stat-item">
+        <h3 data-target="28976">0</h3>
+        <p>Meals Served</p>
+      </div>
+      <div class="stat-item">
+        <h3 data-target="19854">0</h3>
+        <p>Active Volunteers</p>
+      </div>
+      <div class="stat-item">
+        <h3 data-target="50">0</h3>
+        <p>Community Programs</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Preview -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2">
+      <div>
+        <h2>Lighting the Path to Change</h2>
+        <p>At Basti Ki Pathshala Foundation, we are more than just an organization – we are a movement, driven by the belief that education is the cornerstone of empowerment. Established under the Indian Societies Act of 1860, we stand as a beacon of hope in underserved communities.</p>
+        <p>Our core mission is to break the barriers of education in underserved slum communities by providing quality learning opportunities and a nurturing environment for children to thrive.</p>
+        <div style="margin-top: 2rem;">
+          <a class="btn" href="/about">Read Our Story</a>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="background: linear-gradient(135deg, var(--primary-yellow), var(--secondary-yellow)); color: var(--dark-blue);">
+          <h3>Our Mission</h3>
+          <p><strong>"We Work Together"</strong> - involving volunteers, interns, donors, and community members in a unified mission to transform lives through education.</p>
+          <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+            <li><strong>Quality Education:</strong> Delivering impactful learning experiences</li>
+            <li><strong>Community Engagement:</strong> Driving sustainable transformation</li>
+            <li><strong>Empowerment:</strong> Breaking the cycle of poverty</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Programs Section -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Our Programs</h2>
+      <p>Comprehensive initiatives designed to address educational inequality and empower communities</p>
+    </div>
+
+    <% if (programs && programs.length > 0) { %>
+      <div class="grid-3">
+        <% programs.forEach(program => { %>
+          <div class="card">
+            <% if (program.cover_path) { %>
+              <img src="<%= program.cover_path %>" alt="<%= program.title %>" class="card-image">
+            <% } %>
+            <h3><a href="/programs/<%= program.slug %>" style="color: var(--dark-blue); text-decoration: none;"><%= program.title %></a></h3>
+            <p><%= program.summary || 'Empowering communities through targeted educational initiatives and sustainable development programs.' %></p>
+            <a href="/programs/<%= program.slug %>" class="btn" style="margin-top: 1rem;">Learn More</a>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div class="grid-3">
+        <div class="card">
+          <h3>📚 Education Access Program</h3>
+          <p>Providing quality education to children in slum areas through innovative teaching methods and learning resources.</p>
+          <a href="/programs" class="btn" style="margin-top: 1rem;">Learn More</a>
+        </div>
+        <div class="card">
+          <h3>🤝 Community Development</h3>
+          <p>Empowering communities through skill development, health awareness, and sustainable livelihood programs.</p>
+          <a href="/programs" class="btn" style="margin-top: 1rem;">Learn More</a>
+        </div>
+        <div class="card">
+          <h3>🌟 Youth Leadership</h3>
+          <p>Training young leaders to become change agents in their communities and drive social transformation.</p>
+          <a href="/programs" class="btn" style="margin-top: 1rem;">Learn More</a>
+        </div>
+      </div>
+    <% } %>
+
+    <div class="text-center mt-2">
+      <a href="/programs" class="btn btn-outline">View All Programs</a>
+    </div>
+  </div>
+</section>
+
+<!-- Success Stories -->
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Success Stories</h2>
+      <p>Real stories of transformation and hope from our community</p>
+    </div>
+
+    <% if (posts && posts.length > 0) { %>
+      <div class="grid-3">
+        <% posts.forEach(post => { %>
+          <div class="card">
+            <% if (post.cover_path) { %>
+              <img src="<%= post.cover_path %>" alt="<%= post.title %>" class="card-image">
+            <% } %>
+            <h3><a href="/stories/<%= post.slug %>" style="color: var(--dark-blue); text-decoration: none;"><%= post.title %></a></h3>
+            <p><%= post.excerpt || 'Inspiring stories of children and communities transformed through education and empowerment.' %></p>
+            <a href="/stories/<%= post.slug %>" class="btn" style="margin-top: 1rem;">Read Story</a>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div class="grid-3">
+        <div class="card">
+          <h3>🌟 From Streets to Success</h3>
+          <p>How Priya, a 12-year-old from the slums, transformed her life through our education program and now dreams of becoming a doctor.</p>
+          <a href="/stories" class="btn" style="margin-top: 1rem;">Read Story</a>
+        </div>
+        <div class="card">
+          <h3>💪 Community Transformation</h3>
+          <p>The incredible journey of Rajesh Nagar slum community and how education brought hope and opportunities to 200+ families.</p>
+          <a href="/stories" class="btn" style="margin-top: 1rem;">Read Story</a>
+        </div>
+        <div class="card">
+          <h3>🎓 Breaking Barriers</h3>
+          <p>Meet Arjun, who went from being a child laborer to a college graduate, inspiring his entire community to value education.</p>
+          <a href="/stories" class="btn" style="margin-top: 1rem;">Read Story</a>
+        </div>
+      </div>
+    <% } %>
+
+    <div class="text-center mt-2">
+      <a href="/stories" class="btn btn-outline">Read More Stories</a>
+    </div>
+  </div>
+</section>
+
+<!-- Why Education Matters -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Why Education is Important?</h2>
+      <p>Understanding the transformative power of education in breaking cycles of poverty</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>🔄 Breaking the Cycle of Poverty</h3>
+        <p>Education offers underprivileged slum children a pathway out of poverty by providing them with the knowledge and skills necessary to secure better opportunities in the future. By empowering them with education, these children can break the intergenerational cycle of poverty and create a brighter future for themselves and their families.</p>
+      </div>
+      <div class="card">
+        <h3>💪 Empowerment and Self-Improvement</h3>
+        <p>Education empowers slum children to envision a life beyond their current circumstances. It instills in them a sense of self-worth and confidence, enabling them to dream big and pursue their aspirations. Through education, these children gain the tools to advocate for themselves, make informed decisions, and strive for a better quality of life.</p>
+      </div>
+      <div class="card">
+        <h3>🌟 Building Resilience and Hope</h3>
+        <p>Education offers slum children a sense of hope and resilience in the face of adversity. It equips them with the skills to overcome challenges and navigate the complexities of their environment. By investing in their education, we provide these children with a beacon of hope, showing them that a brighter future is possible, no matter where they come from.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Get Involved Section -->
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Get Involved</h2>
+      <p>Join our mission to transform lives through education</p>
+    </div>
+
+    <div class="grid-2">
+      <!-- Volunteer Form -->
+      <div class="card" id="volunteer">
+        <h3>🤝 Volunteer With Us</h3>
+        <p>Whether you're eager to teach, help organize programs, or contribute creatively, there's likely a role for you. Volunteers and interns are integral to our mission.</p>
+        <form method="post" action="/volunteer">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input name="name" required />
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input name="email" type="email" />
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input name="phone" />
+          </div>
+          <div class="form-group">
+            <label>Areas of Interest</label>
+            <input name="interests" placeholder="Teaching, Community Work, Event Management, etc." />
+          </div>
+          <div class="form-group">
+            <label>Why do you want to volunteer?</label>
+            <textarea name="message" placeholder="Tell us about your motivation and how you'd like to contribute..."></textarea>
+          </div>
+          <button class="btn btn-success" type="submit">Join Our Team</button>
+        </form>
+      </div>
+
+      <!-- Donation Form -->
+      <div class="card" id="donate">
+        <h3>💝 Make a Donation</h3>
+        <p>Every contribution—big or small—helps furnish educational tools, resources, and opportunities for children in underserved communities. We'll contact you with bank/UPI details.</p>
+        <form method="post" action="/donate">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input name="name" required />
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input name="email" type="email" />
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input name="phone" />
+          </div>
+          <div class="form-group">
+            <label>Donation Amount (INR) *</label>
+            <input name="amount" type="number" min="1" required placeholder="Enter amount" />
+          </div>
+          <div class="form-group">
+            <label>Message (Optional)</label>
+            <textarea name="message" placeholder="Any specific message or purpose for your donation..."></textarea>
+          </div>
+          <button class="btn" type="submit">Pledge Donation</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

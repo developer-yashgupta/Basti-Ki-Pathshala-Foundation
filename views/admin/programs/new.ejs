@@ -1,0 +1,92 @@
+<%- include('../../partials/header', { title }) %>
+
+<!-- Admin Header -->
+<section class="section" style="background: linear-gradient(135deg, var(--primary-yellow), var(--secondary-yellow)); color: var(--dark-blue); padding: 2rem 0;">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="color: var(--dark-blue); margin: 0 0 0.5rem 0;">📚 Create New Program</h1>
+        <p style="color: var(--dark-blue); opacity: 0.8; margin: 0;">Add a new educational program or initiative</p>
+      </div>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/admin/programs" class="btn" style="background: var(--dark-blue); color: var(--white);">← Back to Programs</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Form Section -->
+<section class="section">
+  <div class="container">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <div class="card">
+        <h2 style="margin: 0 0 2rem 0; color: var(--dark-blue);">Program Details</h2>
+
+        <form method="post" action="/admin/programs" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="title">📚 Program Title *</label>
+            <input
+              id="title"
+              name="title"
+              required
+              placeholder="Enter the program title"
+            />
+            <small style="color: var(--text-gray); font-size: 0.85rem;">
+              This will be displayed as the main heading for your program
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="summary">📝 Program Summary</label>
+            <textarea
+              id="summary"
+              name="summary"
+              rows="3"
+              placeholder="Brief description of the program (optional)"
+            ></textarea>
+            <small style="color: var(--text-gray); font-size: 0.85rem;">
+              A short summary that appears in program listings
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="body_md">📄 Detailed Description (Markdown)</label>
+            <textarea
+              id="body_md"
+              name="body_md"
+              rows="10"
+              placeholder="Detailed description of the program using Markdown formatting"
+            ></textarea>
+            <small style="color: var(--text-gray); font-size: 0.85rem;">
+              Use Markdown syntax for formatting. This will be the main content of the program page.
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="cover">🖼️ Cover Image</label>
+            <input
+              id="cover"
+              type="file"
+              name="cover"
+              accept="image/*"
+            />
+            <small style="color: var(--text-gray); font-size: 0.85rem;">
+              Upload an image to represent this program (JPG, PNG, GIF)
+            </small>
+          </div>
+
+          <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+            <button class="btn" type="submit" style="background: var(--success-green);">
+              ✅ Create Program
+            </button>
+            <a href="/admin/programs" class="btn btn-outline">
+              ❌ Cancel
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../../partials/footer') %>

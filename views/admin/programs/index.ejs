@@ -1,0 +1,108 @@
+<%- include('../../partials/header', { title }) %>
+
+<!-- Admin Header -->
+<section class="section" style="background: linear-gradient(135deg, var(--primary-yellow), var(--secondary-yellow)); color: var(--dark-blue); padding: 2rem 0;">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="color: var(--dark-blue); margin: 0 0 0.5rem 0;">📚 Programs Management</h1>
+        <p style="color: var(--dark-blue); opacity: 0.8; margin: 0;">Create and manage educational programs and initiatives</p>
+      </div>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/admin" class="btn" style="background: var(--dark-blue); color: var(--white);">← Dashboard</a>
+        <a href="/admin/programs/new" class="btn" style="background: var(--success-green); color: var(--white);">+ New Program</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Programs List -->
+<section class="section">
+  <div class="container">
+    <% if (rows && rows.length > 0) { %>
+      <div class="text-center mb-2">
+        <h2>Current Programs</h2>
+        <p>Manage your foundation's educational programs and initiatives</p>
+      </div>
+
+      <div class="grid-2">
+        <% rows.forEach(program => { %>
+          <div class="card">
+            <% if (program.cover_path) { %>
+              <img src="<%= program.cover_path %>" alt="<%= program.title %>" class="card-image">
+            <% } else { %>
+              <div style="width: 100%; height: 150px; background: linear-gradient(135deg, var(--primary-yellow), var(--secondary-yellow)); border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 3rem;">
+                📚
+              </div>
+            <% } %>
+
+            <h3 style="margin: 0 0 0.5rem 0;"><%= program.title %></h3>
+            <p style="color: var(--text-gray); font-size: 0.9rem; margin: 0 0 0.5rem 0;">
+              <strong>Slug:</strong> <%= program.slug %>
+            </p>
+
+            <% if (program.summary) { %>
+              <p style="margin: 0 0 1rem 0; color: var(--text-gray);"><%= program.summary.substring(0, 100) %>...</p>
+            <% } %>
+
+            <% if (program.created_at) { %>
+              <p style="color: var(--text-gray); font-size: 0.85rem; margin: 0 0 1.5rem 0;">
+                📅 Created: <%= new Date(program.created_at).toLocaleDateString() %>
+              </p>
+            <% } %>
+
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <a href="/programs/<%= program.slug %>" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">👁️ View</a>
+              <a href="/admin/programs/<%= program.id %>/edit" class="btn" style="font-size: 0.9rem;">✏️ Edit</a>
+              <form method="post" action="/admin/programs/<%= program.id %>/delete" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this program?')">
+                <button class="btn" style="background: var(--danger-red); color: var(--white); font-size: 0.9rem;" type="submit">🗑️ Delete</button>
+              </form>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <!-- Empty State -->
+      <div class="text-center" style="padding: 4rem 0;">
+        <div style="width: 120px; height: 120px; background: var(--bg-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; font-size: 3rem;">
+          📚
+        </div>
+        <h2>No Programs Yet</h2>
+        <p style="max-width: 500px; margin: 0 auto 2rem; color: var(--text-gray);">
+          Start building your foundation's impact by creating your first educational program. Programs help showcase the work you're doing in communities.
+        </p>
+        <a href="/admin/programs/new" class="btn" style="background: var(--success-green);">+ Create Your First Program</a>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<!-- Quick Stats -->
+<% if (rows && rows.length > 0) { %>
+<section class="section section-alt">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Programs Overview</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="card text-center">
+        <h3 style="color: var(--primary-yellow); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.length %></h3>
+        <p style="font-weight: 600; margin: 0;">Total Programs</p>
+      </div>
+
+      <div class="card text-center">
+        <h3 style="color: var(--success-green); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.filter(p => p.cover_path).length %></h3>
+        <p style="font-weight: 600; margin: 0;">With Images</p>
+      </div>
+
+      <div class="card text-center">
+        <h3 style="color: var(--secondary-yellow); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.filter(p => p.summary).length %></h3>
+        <p style="font-weight: 600; margin: 0;">With Descriptions</p>
+      </div>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<%- include('../../partials/footer') %>

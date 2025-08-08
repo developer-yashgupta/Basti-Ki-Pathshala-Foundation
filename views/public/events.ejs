@@ -1,0 +1,91 @@
+<%- include('../partials/header', { title }) %>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Events & Activities</h1>
+      <p>Join us in our mission to transform lives through education. Discover upcoming events, workshops, and community activities.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Events Section -->
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Upcoming Events</h2>
+      <p>Be part of our journey to create positive change in underserved communities</p>
+    </div>
+
+    <% if (rows && rows.length > 0) { %>
+      <div class="grid-2">
+        <% rows.forEach(event => { %>
+          <div class="card">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div style="width: 60px; height: 60px; background: var(--primary-yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                📅
+              </div>
+              <div>
+                <h3 style="margin: 0; color: var(--dark-blue);"><%= event.title %></h3>
+                <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">
+                  <% if (event.event_date) { %>
+                    📅 <%= new Date(event.event_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+                  <% } %>
+                  <% if (event.location) { %>
+                    | 📍 <%= event.location %>
+                  <% } %>
+                </p>
+              </div>
+            </div>
+            <% if (event.description_md) { %>
+              <p><%= event.description_md.substring(0, 150) %>...</p>
+            <% } else { %>
+              <p>Join us for this important community event focused on education and empowerment.</p>
+            <% } %>
+            <div style="margin-top: 1.5rem;">
+              <a href="/contact" class="btn">Register Interest</a>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <!-- Default Events when none exist -->
+      <div class="grid-2">
+        <div class="card">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="width: 60px; height: 60px; background: var(--primary-yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+              🎓
+            </div>
+            <div>
+              <h3 style="margin: 0; color: var(--dark-blue);">Annual Education Fair</h3>
+              <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">📅 Coming Soon | 📍 Community Center</p>
+            </div>
+          </div>
+          <p>Join us for our annual education fair where we showcase student achievements, conduct workshops for parents, and celebrate the power of education in transforming lives.</p>
+          <div style="margin-top: 1.5rem;">
+            <span class="btn" style="background: var(--light-gray); color: var(--text-gray); cursor: default;">Coming Soon</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="width: 60px; height: 60px; background: var(--success-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white;">
+              🤝
+            </div>
+            <div>
+              <h3 style="margin: 0; color: var(--dark-blue);">Volunteer Training Workshop</h3>
+              <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">📅 Monthly | 📍 Various Locations</p>
+            </div>
+          </div>
+          <p>Comprehensive training sessions for new volunteers covering our teaching methodologies and community engagement strategies.</p>
+          <div style="margin-top: 1.5rem;">
+            <span class="btn" style="background: var(--light-gray); color: var(--text-gray); cursor: default;">Coming Soon</span>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

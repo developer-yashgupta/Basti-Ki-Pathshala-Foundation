@@ -1,0 +1,12 @@
+<%- include('../partials/header', { title }) %>
+<h1>Edit Partner</h1>
+<form method="post" action="/admin/partners/<%= row.id %>" enctype="multipart/form-data">
+  <div class="grid">
+    <div><label>Name<input name="name" required value="<%= row.name %>" /></label></div>
+    <div><label>URL<input name="url" value="<%= row.url || '' %>" /></label></div>
+    <div><label>Logo<input type="file" name="logo" /></label></div>
+  </div>
+  <button class="btn" type="submit">Save</button>
+<%- include('../../partials/footer') %>
+</form>
+

@@ -1,0 +1,87 @@
+<%- include('../../partials/header', { title }) %>
+
+<!-- Admin Header -->
+<section class="section" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: var(--white); padding: 2rem 0;">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="color: var(--white); margin: 0 0 0.5rem 0;">✉️ Compose Email</h1>
+        <p style="color: var(--white); opacity: 0.9; margin: 0;">Send an email to volunteers, donors, or partners</p>
+      </div>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/admin/outbox" class="btn btn-outline" style="border-color: var(--white); color: var(--white);">← Back to Outbox</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Form Section -->
+<section class="section">
+  <div class="container">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <div class="card">
+        <h2 style="margin: 0 0 2rem 0; color: var(--dark-blue);">Email Details</h2>
+
+        <form method="post" action="/admin/outbox">
+          <div class="form-group">
+            <label for="to_email">📧 To (Email Address) *</label>
+            <input
+              id="to_email"
+              name="to_email"
+              type="email"
+              required
+              placeholder="recipient@example.com"
+            />
+            <small style="color: var(--text-gray); font-size: 0.85rem;">
+              Enter the recipient's email address
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">📝 Subject *</label>
+            <input
+              id="subject"
+              name="subject"
+              required
+              placeholder="Enter email subject"
+            />
+            <small style="color: var(--text-gray); font-size: 0.85rem;">
+              A clear, descriptive subject line for your email
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="body_text">📄 Message Body</label>
+            <textarea
+              id="body_text"
+              name="body_text"
+              rows="10"
+              placeholder="Type your message here..."
+            ></textarea>
+            <small style="color: var(--text-gray); font-size: 0.85rem;">
+              The main content of your email message
+            </small>
+          </div>
+
+          <div style="background: rgba(139, 92, 246, 0.1); padding: 1rem; border-radius: var(--border-radius); margin: 1rem 0;">
+            <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">
+              <strong>📌 Note:</strong> This email will be queued for sending. In a production environment, you would integrate with an email service provider to actually send the emails.
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+            <button class="btn" type="submit" style="background: #8b5cf6;">
+              📤 Queue Email
+            </button>
+            <a href="/admin/outbox" class="btn btn-outline">
+              ❌ Cancel
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../../partials/footer') %>
+

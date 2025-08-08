@@ -1,0 +1,154 @@
+<%- include('../../partials/header', { title }) %>
+
+<!-- Admin Header -->
+<section class="section" style="background: linear-gradient(135deg, var(--success-green), #047857); color: var(--white); padding: 2rem 0;">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="color: var(--white); margin: 0 0 0.5rem 0;">💝 Donation Pledges</h1>
+        <p style="color: var(--white); opacity: 0.9; margin: 0;">Track and manage donation pledges from supporters</p>
+      </div>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/admin" class="btn btn-outline" style="border-color: var(--white); color: var(--white);">← Dashboard</a>
+        <div style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: var(--border-radius);">
+          <strong><%= rows.length %></strong> Pledges
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pledges List -->
+<section class="section">
+  <div class="container">
+    <% if (rows && rows.length > 0) { %>
+      <div class="text-center mb-2">
+        <h2>Donation Pledges</h2>
+        <p>Review and manage donation commitments from your supporters</p>
+      </div>
+
+      <div class="grid-2">
+        <% rows.forEach(pledge => { %>
+          <div class="card">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div style="width: 60px; height: 60px; background: var(--success-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white;">
+                💝
+              </div>
+              <div>
+                <h3 style="margin: 0; color: var(--dark-blue);"><%= pledge.name %></h3>
+                <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">
+                  📅 Pledged: <%= new Date(pledge.created_at).toLocaleDateString() %>
+                </p>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1rem;">
+                <div style="text-align: center; padding: 1rem; background: var(--bg-light); border-radius: var(--border-radius);">
+                  <h4 style="color: var(--success-green); font-size: 1.5rem; margin: 0;">₹<%= pledge.amount.toLocaleString() %></h4>
+                  <p style="margin: 0; font-size: 0.9rem;">Pledge Amount</p>
+                </div>
+                <div style="text-align: center; padding: 1rem; background: var(--bg-light); border-radius: var(--border-radius);">
+                  <%
+                    let statusColor = pledge.status === 'received' ? 'var(--success-green)' :
+                                     pledge.status === 'cancelled' ? 'var(--danger-red)' : 'var(--primary-yellow)';
+                    let statusIcon = pledge.status === 'received' ? '✅' :
+                                    pledge.status === 'cancelled' ? '❌' : '⏳';
+                  %>
+                  <h4 style="color: <%= statusColor %>; font-size: 1.2rem; margin: 0;"><%= statusIcon %></h4>
+                  <p style="margin: 0; font-size: 0.9rem; text-transform: capitalize;"><%= pledge.status %></p>
+                </div>
+              </div>
+
+              <% if (pledge.email) { %>
+                <p style="margin: 0 0 0.5rem 0;">
+                  <strong>📧 Email:</strong>
+                  <a href="mailto:<%= pledge.email %>" style="color: var(--primary-yellow); text-decoration: none;"><%= pledge.email %></a>
+                </p>
+              <% } %>
+
+              <% if (pledge.phone) { %>
+                <p style="margin: 0 0 0.5rem 0;">
+                  <strong>📱 Phone:</strong>
+                  <a href="tel:<%= pledge.phone %>" style="color: var(--primary-yellow); text-decoration: none;"><%= pledge.phone %></a>
+                </p>
+              <% } %>
+            </div>
+
+            <% if (pledge.message) { %>
+              <div style="background: var(--bg-light); padding: 1rem; border-radius: var(--border-radius); margin-bottom: 1rem;">
+                <p style="margin: 0; font-style: italic; color: var(--text-gray);">
+                  "<%= pledge.message %>"
+                </p>
+              </div>
+            <% } %>
+
+            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+              <form method="post" action="/admin/pledges/<%= pledge.id %>/status" style="display: flex; gap: 0.5rem; align-items: center; flex: 1;">
+                <select name="status" style="flex: 1; padding: 0.5rem; border: 1px solid var(--light-gray); border-radius: var(--border-radius);">
+                  <option value="pledged" <%= pledge.status==='pledged'?'selected':'' %>>⏳ Pledged</option>
+                  <option value="received" <%= pledge.status==='received'?'selected':'' %>>✅ Received</option>
+                  <option value="cancelled" <%= pledge.status==='cancelled'?'selected':'' %>>❌ Cancelled</option>
+                </select>
+                <button class="btn" type="submit" style="font-size: 0.9rem;">Update</button>
+              </form>
+
+              <% if (pledge.email) { %>
+                <a href="mailto:<%= pledge.email %>?subject=Thank you for your donation pledge - Basti Ki Pathshala Foundation" class="btn btn-outline" style="font-size: 0.9rem;">✉️ Contact</a>
+              <% } %>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <!-- Empty State -->
+      <div class="text-center" style="padding: 4rem 0;">
+        <div style="width: 120px; height: 120px; background: var(--bg-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; font-size: 3rem;">
+          💝
+        </div>
+        <h2>No Donation Pledges Yet</h2>
+        <p style="max-width: 500px; margin: 0 auto 2rem; color: var(--text-gray);">
+          When people make donation pledges through your website, they will appear here. You can then track their status and follow up with donors.
+        </p>
+        <a href="/" class="btn btn-outline">Visit Website</a>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<!-- Quick Stats -->
+<% if (rows && rows.length > 0) { %>
+<section class="section section-alt">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Donation Statistics</h2>
+    </div>
+
+    <div class="grid-4">
+      <div class="card text-center">
+        <h3 style="color: var(--success-green); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.length %></h3>
+        <p style="font-weight: 600; margin: 0;">Total Pledges</p>
+      </div>
+
+      <div class="card text-center">
+        <% const totalAmount = rows.reduce((sum, p) => sum + (p.amount || 0), 0); %>
+        <h3 style="color: var(--primary-yellow); font-size: 2rem; margin: 0 0 0.5rem 0;">₹<%= totalAmount.toLocaleString() %></h3>
+        <p style="font-weight: 600; margin: 0;">Total Amount</p>
+      </div>
+
+      <div class="card text-center">
+        <h3 style="color: var(--success-green); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.filter(p => p.status === 'received').length %></h3>
+        <p style="font-weight: 600; margin: 0;">Received</p>
+      </div>
+
+      <div class="card text-center">
+        <h3 style="color: var(--primary-yellow); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.filter(p => p.status === 'pledged').length %></h3>
+        <p style="font-weight: 600; margin: 0;">Pending</p>
+      </div>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<%- include('../../partials/footer') %>
+

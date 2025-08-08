@@ -1,0 +1,13 @@
+<%- include('../partials/header', { title }) %>
+<h1>Edit Post</h1>
+<form method="post" action="/admin/posts/<%= row.id %>" enctype="multipart/form-data">
+  <div class="grid">
+    <div><label>Title<input name="title" required value="<%= row.title %>" /></label></div>
+    <div style="grid-column:1/-1"><label>Excerpt<textarea name="excerpt"><%= row.excerpt || '' %></textarea></label></div>
+    <div style="grid-column:1/-1"><label>Body (Markdown)<textarea name="body_md"><%= row.body_md || '' %></textarea></label></div>
+    <div><label>Cover<input type="file" name="cover" /></label></div>
+  </div>
+  <button class="btn" type="submit">Save</button>
+</form>
+<%- include('../../partials/footer') %>
+

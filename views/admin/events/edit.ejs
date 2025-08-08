@@ -1,0 +1,13 @@
+<%- include('../partials/header', { title }) %>
+<h1>Edit Event</h1>
+<form method="post" action="/admin/events/<%= row.id %>">
+  <div class="grid">
+    <div><label>Title<input name="title" required value="<%= row.title %>" /></label></div>
+    <div><label>Date<input name="event_date" type="date" value="<%= (row.event_date || '').slice(0,10) %>" /></label></div>
+    <div><label>Location<input name="location" value="<%= row.location || '' %>" /></label></div>
+    <div style="grid-column:1/-1"><label>Description<textarea name="description_md"><%= row.description_md || '' %></textarea></label></div>
+  </div>
+  <button class="btn" type="submit">Save</button>
+<%- include('../../partials/footer') %>
+</form>
+

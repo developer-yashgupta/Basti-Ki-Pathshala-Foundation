@@ -1,0 +1,136 @@
+<%- include('../../partials/header', { title }) %>
+
+<!-- Admin Header -->
+<section class="section" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: var(--white); padding: 2rem 0;">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="color: var(--white); margin: 0 0 0.5rem 0;">🤝 Volunteer Applications</h1>
+        <p style="color: var(--white); opacity: 0.9; margin: 0;">Review and manage volunteer applications and inquiries</p>
+      </div>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/admin" class="btn btn-outline" style="border-color: var(--white); color: var(--white);">← Dashboard</a>
+        <div style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: var(--border-radius);">
+          <strong><%= rows.length %></strong> Applications
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Volunteers List -->
+<section class="section">
+  <div class="container">
+    <% if (rows && rows.length > 0) { %>
+      <div class="text-center mb-2">
+        <h2>Volunteer Applications</h2>
+        <p>Review applications from people interested in volunteering with your foundation</p>
+      </div>
+
+      <div class="grid-2">
+        <% rows.forEach(volunteer => { %>
+          <div class="card">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div style="width: 60px; height: 60px; background: #8b5cf6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white;">
+                👤
+              </div>
+              <div>
+                <h3 style="margin: 0; color: var(--dark-blue);"><%= volunteer.name %></h3>
+                <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">
+                  📅 Applied: <%= new Date(volunteer.created_at).toLocaleDateString() %>
+                </p>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+              <% if (volunteer.email) { %>
+                <p style="margin: 0 0 0.5rem 0;">
+                  <strong>📧 Email:</strong>
+                  <a href="mailto:<%= volunteer.email %>" style="color: var(--primary-yellow); text-decoration: none;"><%= volunteer.email %></a>
+                </p>
+              <% } %>
+
+              <% if (volunteer.phone) { %>
+                <p style="margin: 0 0 0.5rem 0;">
+                  <strong>📱 Phone:</strong>
+                  <a href="tel:<%= volunteer.phone %>" style="color: var(--primary-yellow); text-decoration: none;"><%= volunteer.phone %></a>
+                </p>
+              <% } %>
+
+              <% if (volunteer.interests) { %>
+                <p style="margin: 0 0 0.5rem 0;">
+                  <strong>🎯 Interests:</strong> <%= volunteer.interests %>
+                </p>
+              <% } %>
+            </div>
+
+            <% if (volunteer.message) { %>
+              <div style="background: var(--bg-light); padding: 1rem; border-radius: var(--border-radius); margin-bottom: 1rem;">
+                <p style="margin: 0; font-style: italic; color: var(--text-gray);">
+                  "<%= volunteer.message %>"
+                </p>
+              </div>
+            <% } %>
+
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <% if (volunteer.email) { %>
+                <a href="mailto:<%= volunteer.email %>?subject=Volunteer Application - Basti Ki Pathshala Foundation" class="btn" style="background: var(--success-green); font-size: 0.9rem;">✉️ Contact</a>
+              <% } %>
+              <% if (volunteer.phone) { %>
+                <a href="tel:<%= volunteer.phone %>" class="btn btn-outline" style="font-size: 0.9rem;">📞 Call</a>
+              <% } %>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <!-- Empty State -->
+      <div class="text-center" style="padding: 4rem 0;">
+        <div style="width: 120px; height: 120px; background: var(--bg-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; font-size: 3rem;">
+          🤝
+        </div>
+        <h2>No Volunteer Applications Yet</h2>
+        <p style="max-width: 500px; margin: 0 auto 2rem; color: var(--text-gray);">
+          When people apply to volunteer through your website, their applications will appear here. You can then review and contact them directly.
+        </p>
+        <a href="/" class="btn btn-outline">Visit Website</a>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<!-- Quick Stats -->
+<% if (rows && rows.length > 0) { %>
+<section class="section section-alt">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Volunteer Statistics</h2>
+    </div>
+
+    <div class="grid-4">
+      <div class="card text-center">
+        <h3 style="color: #8b5cf6; font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.length %></h3>
+        <p style="font-weight: 600; margin: 0;">Total Applications</p>
+      </div>
+
+      <div class="card text-center">
+        <h3 style="color: var(--success-green); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.filter(v => v.email).length %></h3>
+        <p style="font-weight: 600; margin: 0;">With Email</p>
+      </div>
+
+      <div class="card text-center">
+        <h3 style="color: var(--primary-yellow); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.filter(v => v.phone).length %></h3>
+        <p style="font-weight: 600; margin: 0;">With Phone</p>
+      </div>
+
+      <div class="card text-center">
+        <h3 style="color: var(--secondary-yellow); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.filter(v => v.interests).length %></h3>
+        <p style="font-weight: 600; margin: 0;">With Interests</p>
+      </div>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<%- include('../../partials/footer') %>
+

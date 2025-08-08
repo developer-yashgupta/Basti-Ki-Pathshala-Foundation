@@ -1,0 +1,80 @@
+<%- include('../../partials/header', { title }) %>
+
+<!-- Admin Header -->
+<section class="section" style="background: linear-gradient(135deg, #10b981, #059669); color: var(--white); padding: 2rem 0;">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="color: var(--white); margin: 0 0 0.5rem 0;">🤝 Add New Partner</h1>
+        <p style="color: var(--white); opacity: 0.9; margin: 0;">Add a new organization or individual partner</p>
+      </div>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/admin/partners" class="btn btn-outline" style="border-color: var(--white); color: var(--white);">← Back to Partners</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Form Section -->
+<section class="section">
+  <div class="container">
+    <div style="max-width: 600px; margin: 0 auto;">
+      <div class="card">
+        <h2 style="margin: 0 0 2rem 0; color: var(--dark-blue);">Partner Information</h2>
+
+        <form method="post" action="/admin/partners" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="name">🏢 Partner Name *</label>
+            <input
+              id="name"
+              name="name"
+              required
+              placeholder="Enter the partner organization name"
+            />
+            <small style="color: var(--text-gray); font-size: 0.85rem;">
+              The official name of the partner organization or individual
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="url">🌐 Website URL</label>
+            <input
+              id="url"
+              name="url"
+              type="url"
+              placeholder="https://example.com"
+            />
+            <small style="color: var(--text-gray); font-size: 0.85rem;">
+              The partner's official website (optional)
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="logo">🖼️ Partner Logo</label>
+            <input
+              id="logo"
+              type="file"
+              name="logo"
+              accept="image/*"
+            />
+            <small style="color: var(--text-gray); font-size: 0.85rem;">
+              Upload the partner's logo (JPG, PNG, GIF). Recommended size: 200x200px
+            </small>
+          </div>
+
+          <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+            <button class="btn btn-success" type="submit">
+              ✅ Add Partner
+            </button>
+            <a href="/admin/partners" class="btn btn-outline">
+              ❌ Cancel
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../../partials/footer') %>
+

@@ -1,0 +1,132 @@
+<%- include('../partials/header', { title }) %>
+
+<!-- Admin Header -->
+<section class="section" style="background: linear-gradient(135deg, var(--text-gray), var(--dark-blue)); color: var(--white); padding: 2rem 0;">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="color: var(--white); margin: 0 0 0.5rem 0;">⚙️ Site Settings</h1>
+        <p style="color: var(--white); opacity: 0.9; margin: 0;">Manage website configuration and administrative settings</p>
+      </div>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/admin" class="btn btn-outline" style="border-color: var(--white); color: var(--white);">← Dashboard</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Settings Sections -->
+<section class="section">
+  <div class="container">
+    <div style="max-width: 800px; margin: 0 auto;">
+      
+      <!-- Data Export -->
+      <div class="card" style="margin-bottom: 2rem;">
+        <h2 style="margin: 0 0 1rem 0; color: var(--dark-blue);">📊 Data Export</h2>
+        <p style="color: var(--text-gray); margin-bottom: 2rem;">
+          Export your data for backup or analysis purposes. All exports are in JSON format.
+        </p>
+        
+        <div class="grid-3">
+          <div style="text-align: center; padding: 1rem; background: var(--bg-light); border-radius: var(--border-radius);">
+            <h4 style="margin: 0 0 1rem 0;">📚 Programs</h4>
+            <a href="/admin/export/programs" class="btn" style="font-size: 0.9rem;">Export Programs</a>
+          </div>
+          
+          <div style="text-align: center; padding: 1rem; background: var(--bg-light); border-radius: var(--border-radius);">
+            <h4 style="margin: 0 0 1rem 0;">📝 Stories</h4>
+            <a href="/admin/export/posts" class="btn btn-success" style="font-size: 0.9rem;">Export Stories</a>
+          </div>
+          
+          <div style="text-align: center; padding: 1rem; background: var(--bg-light); border-radius: var(--border-radius);">
+            <h4 style="margin: 0 0 1rem 0;">📅 Events</h4>
+            <a href="/admin/export/events" class="btn" style="background: var(--secondary-yellow); font-size: 0.9rem;">Export Events</a>
+          </div>
+          
+          <div style="text-align: center; padding: 1rem; background: var(--bg-light); border-radius: var(--border-radius);">
+            <h4 style="margin: 0 0 1rem 0;">🤝 Partners</h4>
+            <a href="/admin/export/partners" class="btn" style="background: #10b981; font-size: 0.9rem;">Export Partners</a>
+          </div>
+          
+          <div style="text-align: center; padding: 1rem; background: var(--bg-light); border-radius: var(--border-radius);">
+            <h4 style="margin: 0 0 1rem 0;">👥 Volunteers</h4>
+            <a href="/admin/export/volunteers" class="btn" style="background: #8b5cf6; font-size: 0.9rem;">Export Volunteers</a>
+          </div>
+          
+          <div style="text-align: center; padding: 1rem; background: var(--bg-light); border-radius: var(--border-radius);">
+            <h4 style="margin: 0 0 1rem 0;">💝 Pledges</h4>
+            <a href="/admin/export/donation_pledges" class="btn" style="background: var(--success-green); font-size: 0.9rem;">Export Pledges</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Website Information -->
+      <div class="card" style="margin-bottom: 2rem;">
+        <h2 style="margin: 0 0 1rem 0; color: var(--dark-blue);">🌐 Website Information</h2>
+        
+        <div class="grid-2">
+          <div>
+            <h4>Foundation Details</h4>
+            <ul style="margin: 0; padding-left: 1.5rem; color: var(--text-gray);">
+              <li><strong>Name:</strong> Basti Ki Pathshala Foundation</li>
+              <li><strong>Registration:</strong> Indian Societies Act of 1860</li>
+              <li><strong>Mission:</strong> Breaking barriers of education in underserved communities</li>
+              <li><strong>Focus:</strong> Quality learning opportunities for slum children</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4>Website Features</h4>
+            <ul style="margin: 0; padding-left: 1.5rem; color: var(--text-gray);">
+              <li>✅ Responsive design</li>
+              <li>✅ Content management system</li>
+              <li>✅ Volunteer application system</li>
+              <li>✅ Donation pledge system</li>
+              <li>✅ Event management</li>
+              <li>✅ Partner showcase</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quick Links -->
+      <div class="card">
+        <h2 style="margin: 0 0 1rem 0; color: var(--dark-blue);">🔗 Quick Links</h2>
+        <p style="color: var(--text-gray); margin-bottom: 2rem;">
+          Direct access to important website sections and administrative functions.
+        </p>
+        
+        <div class="grid-3">
+          <div>
+            <h4>Public Pages</h4>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <a href="/" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">🏠 Home</a>
+              <a href="/about" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">📖 About</a>
+              <a href="/contact" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">📞 Contact</a>
+            </div>
+          </div>
+          
+          <div>
+            <h4>Content Pages</h4>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <a href="/programs" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">📚 Programs</a>
+              <a href="/stories" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">🌟 Stories</a>
+              <a href="/events" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">📅 Events</a>
+            </div>
+          </div>
+          
+          <div>
+            <h4>Admin Functions</h4>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <a href="/admin/volunteers" class="btn" style="background: #8b5cf6; font-size: 0.9rem;">👥 Volunteers</a>
+              <a href="/admin/pledges" class="btn btn-success" style="font-size: 0.9rem;">💝 Pledges</a>
+              <a href="/admin/outbox" class="btn" style="background: #8b5cf6; font-size: 0.9rem;">📤 Outbox</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

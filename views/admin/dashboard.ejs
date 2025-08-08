@@ -1,0 +1,208 @@
+<%- include('../partials/header', { title }) %>
+
+<!-- Admin Header -->
+<section class="section" style="background: linear-gradient(135deg, var(--dark-blue), var(--text-gray)); color: var(--white); padding: 2rem 0;">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="color: var(--white); margin: 0 0 0.5rem 0;">🎛️ Admin Dashboard</h1>
+        <p style="color: var(--white); opacity: 0.9; margin: 0;">Manage Basti Ki Pathshala Foundation content and operations</p>
+      </div>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/" class="btn btn-outline" style="border-color: var(--white); color: var(--white);">🌐 View Website</a>
+        <form method="post" action="/admin/logout" style="margin: 0;">
+          <button class="btn" type="submit" style="background: var(--danger-red); border: none;">🚪 Logout</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Dashboard Stats -->
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Overview & Statistics</h2>
+      <p>Quick overview of your foundation's content and engagement</p>
+    </div>
+
+    <div class="grid-4">
+      <div class="card text-center" style="border-top: 4px solid var(--primary-yellow);">
+        <div style="width: 60px; height: 60px; background: var(--primary-yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem;">
+          📚
+        </div>
+        <h3 style="color: var(--primary-yellow); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= counts.programs %></h3>
+        <p style="font-weight: 600; margin: 0 0 0.5rem 0;">Programs</p>
+        <a href="/admin/programs" class="btn" style="font-size: 0.9rem;">Manage Programs</a>
+      </div>
+
+      <div class="card text-center" style="border-top: 4px solid var(--success-green);">
+        <div style="width: 60px; height: 60px; background: var(--success-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; color: white;">
+          📝
+        </div>
+        <h3 style="color: var(--success-green); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= counts.posts %></h3>
+        <p style="font-weight: 600; margin: 0 0 0.5rem 0;">Stories</p>
+        <a href="/admin/posts" class="btn btn-success" style="font-size: 0.9rem;">Manage Stories</a>
+      </div>
+
+      <div class="card text-center" style="border-top: 4px solid var(--secondary-yellow);">
+        <div style="width: 60px; height: 60px; background: var(--secondary-yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem;">
+          📅
+        </div>
+        <h3 style="color: var(--secondary-yellow); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= counts.events %></h3>
+        <p style="font-weight: 600; margin: 0 0 0.5rem 0;">Events</p>
+        <a href="/admin/events" class="btn" style="background: var(--secondary-yellow); font-size: 0.9rem;">Manage Events</a>
+      </div>
+
+      <div class="card text-center" style="border-top: 4px solid #8b5cf6;">
+        <div style="width: 60px; height: 60px; background: #8b5cf6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; color: white;">
+          🤝
+        </div>
+        <h3 style="color: #8b5cf6; font-size: 2rem; margin: 0 0 0.5rem 0;"><%= counts.volunteers %></h3>
+        <p style="font-weight: 600; margin: 0 0 0.5rem 0;">Volunteers</p>
+        <a href="/admin/volunteers" class="btn" style="background: #8b5cf6; font-size: 0.9rem;">View Volunteers</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Quick Actions -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Quick Actions</h2>
+      <p>Common administrative tasks and content management</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>📝 Content Management</h3>
+        <p>Create and manage programs, stories, and events that showcase your foundation's impact.</p>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+          <a href="/admin/programs/new" class="btn" style="font-size: 0.9rem;">+ New Program</a>
+          <a href="/admin/posts/new" class="btn btn-success" style="font-size: 0.9rem;">+ New Story</a>
+          <a href="/admin/events/new" class="btn" style="background: var(--secondary-yellow); font-size: 0.9rem;">+ New Event</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>👥 Community Management</h3>
+        <p>Review volunteer applications, donation pledges, and partnership inquiries.</p>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+          <a href="/admin/volunteers" class="btn" style="background: #8b5cf6; font-size: 0.9rem;">View Volunteers</a>
+          <a href="/admin/pledges" class="btn" style="background: var(--success-green); font-size: 0.9rem;">View Pledges</a>
+          <a href="/admin/partners" class="btn btn-outline" style="font-size: 0.9rem;">Manage Partners</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>⚙️ System Management</h3>
+        <p>Manage your account settings, review outbox messages, and system administration.</p>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+          <a href="/admin/account" class="btn" style="background: var(--text-gray); font-size: 0.9rem;">Account Settings</a>
+          <a href="/admin/outbox" class="btn btn-outline" style="font-size: 0.9rem;">Outbox</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Website Management -->
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Website Management</h2>
+      <p>Direct access to all website sections and content management</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>🌐 Public Website</h3>
+        <p>Access all public pages and sections of your foundation's website.</p>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+          <a href="/" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">🏠 Home</a>
+          <a href="/about" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">📖 About</a>
+          <a href="/programs" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">📚 Programs</a>
+        </div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+          <a href="/stories" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">🌟 Stories</a>
+          <a href="/events" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">📅 Events</a>
+          <a href="/contact" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">📞 Contact</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>📊 Analytics & Reports</h3>
+        <p>View website performance and engagement analytics.</p>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+          <a href="/transparency" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">🔍 Transparency</a>
+          <a href="/partners" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">🤝 Partners</a>
+        </div>
+        <div style="background: var(--bg-light); padding: 1rem; border-radius: var(--border-radius); margin-top: 1rem;">
+          <p style="margin: 0; font-size: 0.9rem; color: var(--text-gray);">
+            <strong>Total Content:</strong> <%= counts.programs + counts.posts + counts.events %> items published
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>⚙️ System Tools</h3>
+        <p>Administrative tools and system management features.</p>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+          <a href="/admin/account" class="btn" style="background: var(--text-gray); font-size: 0.9rem;">👤 Account</a>
+          <a href="/admin/settings" class="btn" style="background: var(--text-gray); font-size: 0.9rem;">⚙️ Settings</a>
+          <a href="/admin/outbox" class="btn" style="background: #8b5cf6; font-size: 0.9rem;">📤 Outbox</a>
+        </div>
+        <form method="post" action="/admin/logout" style="margin-top: 1rem;">
+          <button class="btn" type="submit" style="background: var(--danger-red); width: 100%; font-size: 0.9rem;">🚪 Logout</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Recent Activity -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Recent Activity</h2>
+      <p>Latest updates and engagement metrics</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>📊 Engagement Summary</h3>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1rem;">
+          <div style="text-align: center; padding: 1rem; background: var(--bg-light); border-radius: var(--border-radius);">
+            <h4 style="color: var(--primary-yellow); font-size: 1.5rem; margin: 0;"><%= counts.pledges %></h4>
+            <p style="margin: 0; font-size: 0.9rem;">Donation Pledges</p>
+          </div>
+          <div style="text-align: center; padding: 1rem; background: var(--bg-light); border-radius: var(--border-radius);">
+            <h4 style="color: var(--success-green); font-size: 1.5rem; margin: 0;"><%= counts.volunteers %></h4>
+            <p style="margin: 0; font-size: 0.9rem;">Volunteer Applications</p>
+          </div>
+        </div>
+        <div style="margin-top: 1rem;">
+          <a href="/admin/pledges" class="btn btn-outline" style="margin-right: 0.5rem;">View All Pledges</a>
+          <a href="/admin/volunteers" class="btn btn-outline">View All Volunteers</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>🎯 Next Steps</h3>
+        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+          <li>Review new volunteer applications</li>
+          <li>Update program information and impact metrics</li>
+          <li>Create new success stories from recent activities</li>
+          <li>Plan upcoming events and community programs</li>
+          <li>Follow up on donation pledges</li>
+        </ul>
+        <div style="margin-top: 1rem;">
+          <a href="/admin/volunteers" class="btn" style="background: #8b5cf6;">Start Reviewing</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

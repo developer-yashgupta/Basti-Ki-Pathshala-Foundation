@@ -1,0 +1,93 @@
+<%- include('../../partials/header', { title }) %>
+
+<!-- Admin Header -->
+<section class="section" style="background: linear-gradient(135deg, var(--secondary-yellow), #d97706); color: var(--white); padding: 2rem 0;">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="color: var(--white); margin: 0 0 0.5rem 0;">📅 Create New Event</h1>
+        <p style="color: var(--white); opacity: 0.9; margin: 0;">Plan a community event, workshop, or activity</p>
+      </div>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/admin/events" class="btn btn-outline" style="border-color: var(--white); color: var(--white);">← Back to Events</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Form Section -->
+<section class="section">
+  <div class="container">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <div class="card">
+        <h2 style="margin: 0 0 2rem 0; color: var(--dark-blue);">Event Details</h2>
+
+        <form method="post" action="/admin/events">
+          <div class="form-group">
+            <label for="title">🎯 Event Title *</label>
+            <input
+              id="title"
+              name="title"
+              required
+              placeholder="Enter the event title"
+            />
+            <small style="color: var(--text-gray); font-size: 0.85rem;">
+              Create a clear, descriptive title for your event
+            </small>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label for="event_date">📅 Event Date</label>
+              <input
+                id="event_date"
+                name="event_date"
+                type="date"
+              />
+              <small style="color: var(--text-gray); font-size: 0.85rem;">
+                When will this event take place?
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label for="location">📍 Location</label>
+              <input
+                id="location"
+                name="location"
+                placeholder="Event venue or location"
+              />
+              <small style="color: var(--text-gray); font-size: 0.85rem;">
+                Where will this event be held?
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description_md">📝 Event Description (Markdown)</label>
+            <textarea
+              id="description_md"
+              name="description_md"
+              rows="8"
+              placeholder="Describe the event, its purpose, agenda, and what participants can expect..."
+            ></textarea>
+            <small style="color: var(--text-gray); font-size: 0.85rem;">
+              Use Markdown syntax for formatting. Include details about the event agenda, target audience, and registration information.
+            </small>
+          </div>
+
+          <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+            <button class="btn" type="submit" style="background: var(--secondary-yellow);">
+              ✅ Create Event
+            </button>
+            <a href="/admin/events" class="btn btn-outline">
+              ❌ Cancel
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../../partials/footer') %>
+

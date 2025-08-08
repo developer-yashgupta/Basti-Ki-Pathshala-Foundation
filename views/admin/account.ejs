@@ -1,0 +1,148 @@
+<%- include('../partials/header', { title }) %>
+
+<!-- Admin Header -->
+<section class="section" style="background: linear-gradient(135deg, var(--text-gray), var(--dark-blue)); color: var(--white); padding: 2rem 0;">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="color: var(--white); margin: 0 0 0.5rem 0;">⚙️ Account Settings</h1>
+        <p style="color: var(--white); opacity: 0.9; margin: 0;">Manage your admin account security and preferences</p>
+      </div>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/admin" class="btn btn-outline" style="border-color: var(--white); color: var(--white);">← Dashboard</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Account Management -->
+<section class="section">
+  <div class="container">
+    <div style="max-width: 600px; margin: 0 auto;">
+      <!-- Password Change -->
+      <div class="card">
+        <h2 style="margin: 0 0 1rem 0; color: var(--dark-blue);">🔒 Change Password</h2>
+        <p style="color: var(--text-gray); margin-bottom: 2rem;">
+          Update your admin password to keep your account secure. Use a strong password with at least 8 characters.
+        </p>
+
+        <form method="post" action="/admin/account/password">
+          <div class="form-group">
+            <label for="current_password">🔑 Current Password</label>
+            <input
+              id="current_password"
+              type="password"
+              name="current_password"
+              required
+              placeholder="Enter your current password"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="new_password">🆕 New Password</label>
+            <input
+              id="new_password"
+              type="password"
+              name="new_password"
+              required
+              placeholder="Enter your new password"
+              minlength="8"
+            />
+            <small style="color: var(--text-gray); font-size: 0.85rem;">
+              Password must be at least 8 characters long
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="confirm_password">✅ Confirm New Password</label>
+            <input
+              id="confirm_password"
+              type="password"
+              name="confirm_password"
+              required
+              placeholder="Confirm your new password"
+              minlength="8"
+            />
+          </div>
+
+          <div style="margin-top: 2rem;">
+            <button class="btn" type="submit" style="width: 100%; background: var(--success-green);">
+              🔄 Update Password
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Account Information -->
+      <div class="card" style="margin-top: 2rem;">
+        <h2 style="margin: 0 0 1rem 0; color: var(--dark-blue);">👤 Account Information</h2>
+
+        <div style="display: grid; gap: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light); border-radius: var(--border-radius);">
+            <div>
+              <p style="margin: 0; font-weight: 600;">Account Type</p>
+              <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">Administrator</p>
+            </div>
+            <div style="background: var(--success-green); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem;">
+              Active
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light); border-radius: var(--border-radius);">
+            <div>
+              <p style="margin: 0; font-weight: 600;">Access Level</p>
+              <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">Full Admin Access</p>
+            </div>
+            <div style="background: var(--primary-yellow); color: var(--dark-blue); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem;">
+              Admin
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-light); border-radius: var(--border-radius);">
+            <div>
+              <p style="margin: 0; font-weight: 600;">Last Login</p>
+              <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">Today</p>
+            </div>
+            <div style="color: var(--success-green); font-size: 1.2rem;">
+              ✅
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security Tips -->
+      <div class="card" style="margin-top: 2rem; background: linear-gradient(135deg, rgba(255, 205, 5, 0.1), rgba(247, 181, 0, 0.1)); border: 1px solid rgba(255, 205, 5, 0.2);">
+        <h3 style="margin: 0 0 1rem 0; color: var(--dark-blue);">🛡️ Security Tips</h3>
+        <ul style="margin: 0; padding-left: 1.5rem; color: var(--text-gray);">
+          <li>Use a strong, unique password for your admin account</li>
+          <li>Change your password regularly (every 3-6 months)</li>
+          <li>Never share your admin credentials with others</li>
+          <li>Always log out when finished using the admin panel</li>
+          <li>Access the admin panel only from secure, trusted devices</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Password confirmation validation
+document.addEventListener('DOMContentLoaded', function() {
+  const newPassword = document.getElementById('new_password');
+  const confirmPassword = document.getElementById('confirm_password');
+
+  function validatePassword() {
+    if (newPassword.value !== confirmPassword.value) {
+      confirmPassword.setCustomValidity('Passwords do not match');
+    } else {
+      confirmPassword.setCustomValidity('');
+    }
+  }
+
+  newPassword.addEventListener('input', validatePassword);
+  confirmPassword.addEventListener('input', validatePassword);
+});
+</script>
+
+<%- include('../partials/footer') %>
+

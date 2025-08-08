@@ -1,0 +1,111 @@
+<%- include('../partials/header', { title }) %>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Our Programs</h1>
+      <p>Comprehensive initiatives designed to address educational inequality and empower communities through sustainable development</p>
+    </div>
+  </div>
+</section>
+
+<!-- Programs Overview -->
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Transforming Lives Through Education</h2>
+      <p>Our programs are carefully designed to address the unique challenges faced by children in underserved communities, providing them with the tools and opportunities they need to succeed.</p>
+    </div>
+
+    <% if (rows && rows.length > 0) { %>
+      <div class="grid-2">
+        <% rows.forEach(program => { %>
+          <div class="card">
+            <% if (program.cover_path) { %>
+              <img src="<%= program.cover_path %>" alt="<%= program.title %>" class="card-image">
+            <% } %>
+            <h3><a href="/programs/<%= program.slug %>" style="color: var(--dark-blue); text-decoration: none;"><%= program.title %></a></h3>
+            <p><%= program.summary || 'Empowering communities through targeted educational initiatives and sustainable development programs.' %></p>
+            <div style="margin-top: 1.5rem;">
+              <a href="/programs/<%= program.slug %>" class="btn">Learn More</a>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <!-- Default Programs when none exist -->
+      <div class="grid-2">
+        <div class="card">
+          <div style="width: 100%; height: 200px; background: linear-gradient(135deg, var(--primary-yellow), var(--secondary-yellow)); border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 3rem;">
+            📚
+          </div>
+          <h3>Education Access Program</h3>
+          <p>Our flagship program provides quality education to children in slum areas through innovative teaching methods, personalized attention, and comprehensive learning resources. We focus on creating a nurturing environment where every child can thrive academically and personally.</p>
+          <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+            <li>Interactive classroom sessions</li>
+            <li>One-on-one tutoring support</li>
+            <li>Educational material provision</li>
+            <li>Regular assessment and progress tracking</li>
+          </ul>
+          <div style="margin-top: 1.5rem;">
+            <span class="btn" style="background: var(--light-gray); color: var(--text-gray); cursor: default;">Coming Soon</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="width: 100%; height: 200px; background: linear-gradient(135deg, var(--success-green), #047857); border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 3rem; color: white;">
+            🤝
+          </div>
+          <h3>Community Development Initiative</h3>
+          <p>Empowering entire communities through skill development, health awareness, and sustainable livelihood programs. We work closely with families to create lasting change that extends beyond individual children to transform entire neighborhoods.</p>
+          <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+            <li>Adult literacy programs</li>
+            <li>Vocational skill training</li>
+            <li>Health and hygiene workshops</li>
+            <li>Women empowerment initiatives</li>
+          </ul>
+          <div style="margin-top: 1.5rem;">
+            <span class="btn" style="background: var(--light-gray); color: var(--text-gray); cursor: default;">Coming Soon</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="width: 100%; height: 200px; background: linear-gradient(135deg, var(--secondary-yellow), #d97706); border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 3rem; color: white;">
+            🌟
+          </div>
+          <h3>Youth Leadership Program</h3>
+          <p>Training young leaders to become change agents in their communities and drive social transformation. This program focuses on developing leadership skills, critical thinking, and social awareness among youth from underserved areas.</p>
+          <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+            <li>Leadership workshops</li>
+            <li>Public speaking training</li>
+            <li>Community project management</li>
+            <li>Mentorship opportunities</li>
+          </ul>
+          <div style="margin-top: 1.5rem;">
+            <span class="btn" style="background: var(--light-gray); color: var(--text-gray); cursor: default;">Coming Soon</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="width: 100%; height: 200px; background: linear-gradient(135deg, #8b5cf6, #7c3aed); border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 3rem; color: white;">
+            🍽️
+          </div>
+          <h3>Nutrition & Wellness Program</h3>
+          <p>Ensuring children receive proper nutrition and healthcare support to enhance their learning capacity. We believe that a well-nourished child is better equipped to learn and grow, making nutrition a cornerstone of our educational approach.</p>
+          <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+            <li>Daily nutritious meals</li>
+            <li>Health check-ups</li>
+            <li>Nutrition education</li>
+            <li>Hygiene awareness programs</li>
+          </ul>
+          <div style="margin-top: 1.5rem;">
+            <span class="btn" style="background: var(--light-gray); color: var(--text-gray); cursor: default;">Coming Soon</span>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

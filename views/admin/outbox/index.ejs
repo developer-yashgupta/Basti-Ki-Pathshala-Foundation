@@ -1,0 +1,129 @@
+<%- include('../../partials/header', { title }) %>
+
+<!-- Admin Header -->
+<section class="section" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: var(--white); padding: 2rem 0;">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="color: var(--white); margin: 0 0 0.5rem 0;">📤 Outbox</h1>
+        <p style="color: var(--white); opacity: 0.9; margin: 0;">Manage outgoing emails and communications</p>
+      </div>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/admin" class="btn btn-outline" style="border-color: var(--white); color: var(--white);">← Dashboard</a>
+        <a href="/admin/outbox/new" class="btn" style="background: var(--white); color: var(--dark-blue);">✉️ Compose Email</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Outbox List -->
+<section class="section">
+  <div class="container">
+    <% if (rows && rows.length > 0) { %>
+      <div class="text-center mb-2">
+        <h2>Email Communications</h2>
+        <p>Track outgoing emails and their delivery status</p>
+      </div>
+
+      <div class="grid-2">
+        <% rows.forEach(email => { %>
+          <div class="card">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div style="width: 60px; height: 60px; background: #8b5cf6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white;">
+                📧
+              </div>
+              <div style="flex: 1;">
+                <h3 style="margin: 0; color: var(--dark-blue);"><%= email.subject %></h3>
+                <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">
+                  To: <%= email.to_email %>
+                </p>
+              </div>
+              <div>
+                <%
+                  let statusColor = email.status === 'sent' ? 'var(--success-green)' :
+                                   email.status === 'failed' ? 'var(--danger-red)' : 'var(--primary-yellow)';
+                  let statusIcon = email.status === 'sent' ? '✅' :
+                                  email.status === 'failed' ? '❌' : '⏳';
+                %>
+                <span style="background: <%= statusColor %>; color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem;">
+                  <%= statusIcon %> <%= email.status.charAt(0).toUpperCase() + email.status.slice(1) %>
+                </span>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+              <p style="margin: 0 0 0.5rem 0; color: var(--text-gray); font-size: 0.9rem;">
+                <strong>📅 Sent:</strong> <%= new Date(email.created_at).toLocaleDateString() %> at <%= new Date(email.created_at).toLocaleTimeString() %>
+              </p>
+
+              <% if (email.body_text) { %>
+                <div style="background: var(--bg-light); padding: 1rem; border-radius: var(--border-radius); margin-top: 1rem;">
+                  <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">
+                    <%= email.body_text.substring(0, 150) %>...
+                  </p>
+                </div>
+              <% } %>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <% if (email.status === 'failed') { %>
+                <button class="btn" style="background: var(--primary-yellow); font-size: 0.9rem;">🔄 Retry</button>
+              <% } %>
+              <% if (email.to_email) { %>
+                <a href="mailto:<%= email.to_email %>" class="btn btn-outline" style="font-size: 0.9rem;">📧 Reply</a>
+              <% } %>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <!-- Empty State -->
+      <div class="text-center" style="padding: 4rem 0;">
+        <div style="width: 120px; height: 120px; background: var(--bg-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; font-size: 3rem;">
+          📤
+        </div>
+        <h2>No Emails Sent Yet</h2>
+        <p style="max-width: 500px; margin: 0 auto 2rem; color: var(--text-gray);">
+          Your outgoing emails will appear here. Use the compose feature to send emails to volunteers, donors, or partners.
+        </p>
+        <a href="/admin/outbox/new" class="btn" style="background: #8b5cf6;">✉️ Compose Your First Email</a>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<!-- Quick Stats -->
+<% if (rows && rows.length > 0) { %>
+<section class="section section-alt">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Email Statistics</h2>
+    </div>
+
+    <div class="grid-4">
+      <div class="card text-center">
+        <h3 style="color: #8b5cf6; font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.length %></h3>
+        <p style="font-weight: 600; margin: 0;">Total Emails</p>
+      </div>
+
+      <div class="card text-center">
+        <h3 style="color: var(--success-green); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.filter(e => e.status === 'sent').length %></h3>
+        <p style="font-weight: 600; margin: 0;">Sent Successfully</p>
+      </div>
+
+      <div class="card text-center">
+        <h3 style="color: var(--primary-yellow); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.filter(e => e.status === 'pending').length %></h3>
+        <p style="font-weight: 600; margin: 0;">Pending</p>
+      </div>
+
+      <div class="card text-center">
+        <h3 style="color: var(--danger-red); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.filter(e => e.status === 'failed').length %></h3>
+        <p style="font-weight: 600; margin: 0;">Failed</p>
+      </div>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<%- include('../../partials/footer') %>
+

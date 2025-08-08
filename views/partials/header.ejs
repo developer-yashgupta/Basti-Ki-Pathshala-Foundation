@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="<%= title ? title + ' - ' : '' %>Basti Ki Pathshala Foundation - Breaking barriers of education in underserved communities through quality learning opportunities." />
+  <meta name="keywords" content="education, NGO, slum children, community development, volunteer, donate, Basti Ki Pathshala" />
+  <meta property="og:title" content="<%= title ? title + ' – ' : '' %>Basti Ki Pathshala Foundation" />
+  <meta property="og:description" content="Join us in our mission to break the barriers of education in underserved communities. Empowering children through quality education." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bastikipathshala.org" />
+  <title><%= title ? title + ' – ' : '' %>Basti Ki Pathshala Foundation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/public/styles.css">
+  <link rel="icon" type="image/x-icon" href="/public/favicon.ico">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="/" class="logo">
+          🎓 Basti Ki Pathshala
+        </a>
+        <nav>
+          <% if (typeof isAdmin !== 'undefined' && isAdmin) { %>
+            <!-- Admin Navigation -->
+            <a href="/admin">🎛️ Dashboard</a>
+            <a href="/admin/programs">📚 Programs</a>
+            <a href="/admin/posts">📝 Stories</a>
+            <a href="/admin/events">📅 Events</a>
+            <a href="/admin/partners">🤝 Partners</a>
+            <a href="/admin/volunteers">👥 Volunteers</a>
+            <a href="/admin/pledges">💝 Pledges</a>
+            <a href="/admin/settings">⚙️ Settings</a>
+            <a class="btn btn-outline" href="/">🌐 Website</a>
+          <% } else { %>
+            <!-- Public Navigation -->
+            <a href="/about">About Us</a>
+            <a href="/programs">Programs</a>
+            <a href="/stories">Stories</a>
+            <a href="/events">Events</a>
+            <a href="/partners">Partners</a>
+            <a href="/transparency">Transparency</a>
+            <a href="/contact">Contact</a>
+            <a class="btn btn-success" href="#donate">Donate</a>
+            <a class="btn btn-outline" href="/admin">Admin</a>
+          <% } %>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main>
+

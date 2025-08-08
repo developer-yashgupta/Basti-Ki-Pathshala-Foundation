@@ -1,0 +1,109 @@
+<%- include('../../partials/header', { title }) %>
+
+<!-- Admin Header -->
+<section class="section" style="background: linear-gradient(135deg, var(--success-green), #047857); color: var(--white); padding: 2rem 0;">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="color: var(--white); margin: 0 0 0.5rem 0;">📝 Stories Management</h1>
+        <p style="color: var(--white); opacity: 0.9; margin: 0;">Create and manage success stories and impact narratives</p>
+      </div>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/admin" class="btn btn-outline" style="border-color: var(--white); color: var(--white);">← Dashboard</a>
+        <a href="/admin/posts/new" class="btn" style="background: var(--primary-yellow); color: var(--dark-blue);">+ New Story</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stories List -->
+<section class="section">
+  <div class="container">
+    <% if (rows && rows.length > 0) { %>
+      <div class="text-center mb-2">
+        <h2>Success Stories</h2>
+        <p>Manage inspiring stories that showcase your foundation's impact</p>
+      </div>
+
+      <div class="grid-2">
+        <% rows.forEach(story => { %>
+          <div class="card">
+            <% if (story.cover_path) { %>
+              <img src="<%= story.cover_path %>" alt="<%= story.title %>" class="card-image">
+            <% } else { %>
+              <div style="width: 100%; height: 150px; background: linear-gradient(135deg, var(--success-green), #047857); border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 3rem; color: white;">
+                🌟
+              </div>
+            <% } %>
+
+            <h3 style="margin: 0 0 0.5rem 0;"><%= story.title %></h3>
+            <p style="color: var(--text-gray); font-size: 0.9rem; margin: 0 0 0.5rem 0;">
+              <strong>Slug:</strong> <%= story.slug %>
+            </p>
+
+            <% if (story.excerpt) { %>
+              <p style="margin: 0 0 1rem 0; color: var(--text-gray);"><%= story.excerpt.substring(0, 100) %>...</p>
+            <% } %>
+
+            <% if (story.created_at) { %>
+              <p style="color: var(--text-gray); font-size: 0.85rem; margin: 0 0 1.5rem 0;">
+                📅 Created: <%= new Date(story.created_at).toLocaleDateString() %>
+              </p>
+            <% } %>
+
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <a href="/stories/<%= story.slug %>" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">👁️ View</a>
+              <a href="/admin/posts/<%= story.id %>/edit" class="btn btn-success" style="font-size: 0.9rem;">✏️ Edit</a>
+              <form method="post" action="/admin/posts/<%= story.id %>/delete" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this story?')">
+                <button class="btn" style="background: var(--danger-red); color: var(--white); font-size: 0.9rem;" type="submit">🗑️ Delete</button>
+              </form>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <!-- Empty State -->
+      <div class="text-center" style="padding: 4rem 0;">
+        <div style="width: 120px; height: 120px; background: var(--bg-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; font-size: 3rem;">
+          📝
+        </div>
+        <h2>No Stories Yet</h2>
+        <p style="max-width: 500px; margin: 0 auto 2rem; color: var(--text-gray);">
+          Start sharing the impact of your work by creating inspiring success stories. Stories help donors and volunteers understand the difference your foundation is making.
+        </p>
+        <a href="/admin/posts/new" class="btn btn-success">+ Create Your First Story</a>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<!-- Quick Stats -->
+<% if (rows && rows.length > 0) { %>
+<section class="section section-alt">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Stories Overview</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="card text-center">
+        <h3 style="color: var(--success-green); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.length %></h3>
+        <p style="font-weight: 600; margin: 0;">Total Stories</p>
+      </div>
+
+      <div class="card text-center">
+        <h3 style="color: var(--primary-yellow); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.filter(s => s.cover_path).length %></h3>
+        <p style="font-weight: 600; margin: 0;">With Images</p>
+      </div>
+
+      <div class="card text-center">
+        <h3 style="color: var(--secondary-yellow); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.filter(s => s.excerpt).length %></h3>
+        <p style="font-weight: 600; margin: 0;">With Excerpts</p>
+      </div>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<%- include('../../partials/footer') %>
+

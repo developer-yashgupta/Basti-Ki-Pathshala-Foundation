@@ -1,0 +1,91 @@
+<%- include('../partials/header', { title }) %>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Contact Us</h1>
+      <p>Get in touch with us to learn more about our work, volunteer opportunities, or partnership possibilities</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Information -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2">
+      <div>
+        <h2>Get in Touch</h2>
+        <p>We'd love to hear from you! Whether you're interested in volunteering, partnering with us, or simply want to learn more about our work, don't hesitate to reach out.</p>
+
+        <div class="card" style="margin-top: 2rem;">
+          <h3>Contact Information</h3>
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 40px; height: 40px; background: var(--primary-yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                📧
+              </div>
+              <div>
+                <p style="margin: 0; font-weight: 600;">Email</p>
+                <p style="margin: 0; color: var(--text-gray);">info@bastikipathshala.org</p>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 40px; height: 40px; background: var(--success-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                📱
+              </div>
+              <div>
+                <p style="margin: 0; font-weight: 600;">Phone</p>
+                <p style="margin: 0; color: var(--text-gray);">+91-00000-00000</p>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <div style="width: 40px; height: 40px; background: var(--secondary-yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                📍
+              </div>
+              <div>
+                <p style="margin: 0; font-weight: 600;">Address</p>
+                <p style="margin: 0; color: var(--text-gray);">Serving communities across India</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h3>Send us a Message</h3>
+          <p>Fill out the form below and we'll get back to you as soon as possible.</p>
+
+          <form method="post" action="/contact">
+            <div class="form-group">
+              <label>Full Name *</label>
+              <input name="name" required placeholder="Enter your full name" />
+            </div>
+
+            <div class="form-group">
+              <label>Email Address</label>
+              <input name="email" type="email" placeholder="Enter your email address" />
+            </div>
+
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input name="phone" placeholder="Enter your phone number" />
+            </div>
+
+            <div class="form-group">
+              <label>Message *</label>
+              <textarea name="message" required placeholder="Tell us how we can help you or how you'd like to get involved..." rows="5"></textarea>
+            </div>
+
+            <button class="btn" type="submit" style="width: 100%;">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

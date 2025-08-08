@@ -1,0 +1,89 @@
+<%- include('../partials/header', { title }) %>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Success Stories</h1>
+      <p>Real stories of transformation and hope from our community - witness the power of education in changing lives</p>
+    </div>
+  </div>
+</section>
+
+<!-- Stories Grid -->
+<section class="section">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Stories of Transformation</h2>
+      <p>Every child has a story. Here are some of the incredible journeys of transformation we've been privileged to witness and support.</p>
+    </div>
+
+    <% if (rows && rows.length > 0) { %>
+      <div class="grid-3">
+        <% rows.forEach(story => { %>
+          <div class="card">
+            <% if (story.cover_path) { %>
+              <img src="<%= story.cover_path %>" alt="<%= story.title %>" class="card-image">
+            <% } else { %>
+              <div style="width: 100%; height: 200px; background: linear-gradient(135deg, var(--primary-yellow), var(--secondary-yellow)); border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 3rem;">
+                🌟
+              </div>
+            <% } %>
+            <h3><a href="/stories/<%= story.slug %>" style="color: var(--dark-blue); text-decoration: none;"><%= story.title %></a></h3>
+            <p><%= story.excerpt || 'An inspiring story of transformation through education and community support.' %></p>
+            <div style="margin-top: 1.5rem;">
+              <a href="/stories/<%= story.slug %>" class="btn">Read Full Story</a>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <!-- Default Stories when none exist -->
+      <div class="grid-3">
+        <div class="card">
+          <div style="width: 100%; height: 200px; background: linear-gradient(135deg, var(--primary-yellow), var(--secondary-yellow)); border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 3rem;">
+            🌟
+          </div>
+          <h3>From Streets to Success: Priya's Journey</h3>
+          <p>Meet Priya, a 12-year-old who transformed her life through our education program. Once struggling to survive on the streets, she now dreams of becoming a doctor and is excelling in her studies.</p>
+          <div style="background: var(--bg-light); padding: 1rem; border-radius: var(--border-radius); margin: 1rem 0;">
+            <p style="margin: 0; font-style: italic; color: var(--text-gray);">"Education gave me hope when I had none. Now I know I can achieve anything I set my mind to." - Priya</p>
+          </div>
+          <div style="margin-top: 1.5rem;">
+            <span class="btn" style="background: var(--light-gray); color: var(--text-gray); cursor: default;">Coming Soon</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="width: 100%; height: 200px; background: linear-gradient(135deg, var(--success-green), #047857); border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 3rem; color: white;">
+            💪
+          </div>
+          <h3>Community Transformation: Rajesh Nagar</h3>
+          <p>The incredible journey of Rajesh Nagar slum community and how education brought hope and opportunities to 200+ families. A testament to the power of collective action and community engagement.</p>
+          <div style="background: var(--bg-light); padding: 1rem; border-radius: var(--border-radius); margin: 1rem 0;">
+            <p style="margin: 0; font-style: italic; color: var(--text-gray);">"Our entire community has changed. Children who once worked are now in school, and parents are learning too." - Community Leader</p>
+          </div>
+          <div style="margin-top: 1.5rem;">
+            <span class="btn" style="background: var(--light-gray); color: var(--text-gray); cursor: default;">Coming Soon</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="width: 100%; height: 200px; background: linear-gradient(135deg, var(--secondary-yellow), #d97706); border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 3rem; color: white;">
+            🎓
+          </div>
+          <h3>Breaking Barriers: Arjun's Achievement</h3>
+          <p>Meet Arjun, who went from being a child laborer to a college graduate, inspiring his entire community to value education. His story shows that with determination and support, any barrier can be overcome.</p>
+          <div style="background: var(--bg-light); padding: 1rem; border-radius: var(--border-radius); margin: 1rem 0;">
+            <p style="margin: 0; font-style: italic; color: var(--text-gray);">"I want every child to know that their circumstances don't define their future. Education is the key to breaking free." - Arjun</p>
+          </div>
+          <div style="margin-top: 1.5rem;">
+            <span class="btn" style="background: var(--light-gray); color: var(--text-gray); cursor: default;">Coming Soon</span>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,112 @@
+<%- include('../../partials/header', { title }) %>
+
+<!-- Admin Header -->
+<section class="section" style="background: linear-gradient(135deg, #10b981, #059669); color: var(--white); padding: 2rem 0;">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="color: var(--white); margin: 0 0 0.5rem 0;">🤝 Partners Management</h1>
+        <p style="color: var(--white); opacity: 0.9; margin: 0;">Manage partnerships and collaborations with organizations</p>
+      </div>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/admin" class="btn btn-outline" style="border-color: var(--white); color: var(--white);">← Dashboard</a>
+        <a href="/admin/partners/new" class="btn" style="background: var(--white); color: var(--dark-blue);">+ New Partner</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Partners List -->
+<section class="section">
+  <div class="container">
+    <% if (rows && rows.length > 0) { %>
+      <div class="text-center mb-2">
+        <h2>Current Partners</h2>
+        <p>Manage your foundation's partnerships and collaborations</p>
+      </div>
+
+      <div class="grid-3">
+        <% rows.forEach(partner => { %>
+          <div class="card text-center">
+            <% if (partner.logo_path) { %>
+              <img src="<%= partner.logo_path %>" alt="<%= partner.name %>" style="max-height: 80px; width: auto; margin-bottom: 1rem;" />
+            <% } else { %>
+              <div style="width: 80px; height: 80px; background: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem; color: white;">
+                🤝
+              </div>
+            <% } %>
+
+            <h3 style="margin: 0 0 0.5rem 0; color: var(--dark-blue);"><%= partner.name %></h3>
+
+            <% if (partner.url) { %>
+              <p style="margin: 0 0 1rem 0;">
+                <a href="<%= partner.url %>" target="_blank" style="color: var(--primary-yellow); text-decoration: none; font-size: 0.9rem;">
+                  🌐 <%= partner.url.replace(/^https?:\/\//, '') %>
+                </a>
+              </p>
+            <% } %>
+
+            <% if (partner.created_at) { %>
+              <p style="color: var(--text-gray); font-size: 0.85rem; margin: 0 0 1.5rem 0;">
+                📅 Added: <%= new Date(partner.created_at).toLocaleDateString() %>
+              </p>
+            <% } %>
+
+            <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+              <% if (partner.url) { %>
+                <a href="<%= partner.url %>" class="btn btn-outline" style="font-size: 0.9rem;" target="_blank">🌐 Visit</a>
+              <% } %>
+              <a href="/admin/partners/<%= partner.id %>/edit" class="btn btn-success" style="font-size: 0.9rem;">✏️ Edit</a>
+              <form method="post" action="/admin/partners/<%= partner.id %>/delete" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this partner?')">
+                <button class="btn" style="background: var(--danger-red); color: var(--white); font-size: 0.9rem;" type="submit">🗑️ Delete</button>
+              </form>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <!-- Empty State -->
+      <div class="text-center" style="padding: 4rem 0;">
+        <div style="width: 120px; height: 120px; background: var(--bg-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; font-size: 3rem;">
+          🤝
+        </div>
+        <h2>No Partners Yet</h2>
+        <p style="max-width: 500px; margin: 0 auto 2rem; color: var(--text-gray);">
+          Build stronger impact by partnering with organizations that share your mission. Partners can provide funding, resources, expertise, and expanded reach.
+        </p>
+        <a href="/admin/partners/new" class="btn btn-success">+ Add Your First Partner</a>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<!-- Quick Stats -->
+<% if (rows && rows.length > 0) { %>
+<section class="section section-alt">
+  <div class="container">
+    <div class="text-center mb-2">
+      <h2>Partnership Overview</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="card text-center">
+        <h3 style="color: #10b981; font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.length %></h3>
+        <p style="font-weight: 600; margin: 0;">Total Partners</p>
+      </div>
+
+      <div class="card text-center">
+        <h3 style="color: var(--primary-yellow); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.filter(p => p.logo_path).length %></h3>
+        <p style="font-weight: 600; margin: 0;">With Logos</p>
+      </div>
+
+      <div class="card text-center">
+        <h3 style="color: var(--secondary-yellow); font-size: 2rem; margin: 0 0 0.5rem 0;"><%= rows.filter(p => p.url).length %></h3>
+        <p style="font-weight: 600; margin: 0;">With Websites</p>
+      </div>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<%- include('../../partials/footer') %>
+
