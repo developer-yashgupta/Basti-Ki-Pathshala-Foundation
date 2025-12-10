@@ -264,18 +264,6 @@ basti-ki-pathshala/
 4. Test thoroughly
 5. Submit a pull request
 
-## 📞 Support & Contact
-
-### **Foundation Contact**
-- **Email**: info@bastikipathshala.org
-- **Phone**: +91-00000-00000
-- **Website**: [Basti Ki Pathshala Foundation](http://localhost:3000)
-
-### **Technical Support**
-- **Issues**: GitHub Issues for bug reports
-- **Documentation**: Comprehensive README and inline comments
-- **Community**: Join our developer community
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
