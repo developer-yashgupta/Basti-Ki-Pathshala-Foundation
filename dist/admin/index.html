@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Basti Ki Pathshala Foundation</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+    <div id="admin-app">
+        <h1>Admin Panel</h1>
+        <p>Please log in to access the admin panel.</p>
+        <div data-netlify-identity-menu></div>
+    </div>
+    <script>
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/dashboard.html";
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
