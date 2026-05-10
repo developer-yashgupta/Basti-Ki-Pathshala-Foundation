@@ -5,9 +5,8 @@ const { marked } = require('marked');
 
 // Create dist directory
 const distDir = path.join(__dirname, 'dist');
-if (!fs.existsSync(distDir)) {
-  fs.mkdirSync(distDir, { recursive: true });
-}
+fs.rmSync(distDir, { recursive: true, force: true });
+fs.mkdirSync(distDir, { recursive: true });
 
 // Copy public assets
 const publicDir = path.join(__dirname, 'public');
@@ -86,15 +85,17 @@ async function renderTemplate(templatePath, data = {}) {
 async function generateStaticSite() {
   const viewsDir = path.join(__dirname, 'views', 'public');
   const pages = [
-    { template: 'index.ejs', output: 'index.html', data: { ...sampleData, title: 'Home - Basti Ki Pathshala Foundation' } },
+    { template: 'home.ejs', output: 'index.html', data: { ...sampleData, title: 'Home - Basti Ki Pathshala Foundation' } },
     { template: 'about.ejs', output: 'about.html', data: { title: 'About Us - Basti Ki Pathshala Foundation' } },
-    { template: 'programs.ejs', output: 'programs.html', data: { ...sampleData, title: 'Programs - Basti Ki Pathshala Foundation' } },
-    { template: 'stories.ejs', output: 'stories.html', data: { ...sampleData, title: 'Success Stories - Basti Ki Pathshala Foundation' } },
-    { template: 'events.ejs', output: 'events.html', data: { ...sampleData, title: 'Events - Basti Ki Pathshala Foundation' } },
-    { template: 'partners.ejs', output: 'partners.html', data: { ...sampleData, title: 'Partners - Basti Ki Pathshala Foundation' } },
+    { template: 'programs.ejs', output: 'programs.html', data: { rows: sampleData.programs, title: 'Programs - Basti Ki Pathshala Foundation' } },
+    { template: 'stories.ejs', output: 'stories.html', data: { rows: sampleData.posts, title: 'Success Stories - Basti Ki Pathshala Foundation' } },
+    { template: 'events.ejs', output: 'events.html', data: { rows: sampleData.events, title: 'Events - Basti Ki Pathshala Foundation' } },
+    { template: 'partners.ejs', output: 'partners.html', data: { rows: sampleData.partners, title: 'Partners - Basti Ki Pathshala Foundation' } },
     { template: 'transparency.ejs', output: 'transparency.html', data: { title: 'Transparency - Basti Ki Pathshala Foundation' } },
     { template: 'contact.ejs', output: 'contact.html', data: { title: 'Contact Us - Basti Ki Pathshala Foundation' } }
   ];
+
+  const generationErrors = [];
 
   for (const page of pages) {
     try {
@@ -104,11 +105,16 @@ async function generateStaticSite() {
         fs.writeFileSync(path.join(distDir, page.output), html);
         console.log(`Generated: ${page.output}`);
       } else {
-        console.warn(`Template not found: ${page.template}`);
+        generationErrors.push(`Template not found: ${page.template}`);
       }
     } catch (error) {
-      console.error(`Error generating ${page.output}:`, error.message);
+      generationErrors.push(`Error generating ${page.output}: ${error.message}`);
     }
+  }
+
+  if (generationErrors.length > 0) {
+    generationErrors.forEach(err => console.error(err));
+    throw new Error('Static site generation failed. See errors above.');
   }
 
   // Generate admin page (simple redirect to Netlify Identity)
@@ -137,7 +143,7 @@ async function generateStaticSite() {
             window.netlifyIdentity.on("init", user => {
                 if (!user) {
                     window.netlifyIdentity.on("login", () => {
-                        document.location.href = "/admin/dashboard.html";
+                      document.location.href = "/public/admin/dashboard.html";
                     });
                 }
             });
