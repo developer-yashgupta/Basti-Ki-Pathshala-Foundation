@@ -2,10 +2,12 @@ const path = require('path');
 const { Low } = require('lowdb');
 const { JSONFile } = require('lowdb/node');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 // Database setup for Netlify Functions
 const dbPath = path.join('/tmp', 'db.json');
 let db;
+const tokens = {}; // In-memory token store (valid for session duration)
 
 async function initDb() {
   if (!db) {
@@ -95,6 +97,32 @@ exports.handler = async (event, context) => {
     const id = pathSegments[1];
     
     switch (resource) {
+      case 'auth':
+        if (httpMethod === 'POST') {
+          const data = JSON.parse(body);
+          const password = data.password;
+          const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
+          
+          if (password === adminPassword) {
+            // Generate token
+            const token = crypto.randomBytes(32).toString('hex');
+            tokens[token] = { created: Date.now(), expires: Date.now() + 24 * 60 * 60 * 1000 }; // 24 hour validity
+            
+            return {
+              statusCode: 200,
+              headers,
+              body: JSON.stringify({ success: true, token })
+            };
+          } else {
+            return {
+              statusCode: 401,
+              headers,
+              body: JSON.stringify({ error: 'Invalid password' })
+            };
+          }
+        }
+        break;
+      
       case 'programs':
         if (httpMethod === 'GET') {
           const programs = await findAll('programs');

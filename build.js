@@ -117,7 +117,7 @@ async function generateStaticSite() {
     throw new Error('Static site generation failed. See errors above.');
   }
 
-  // Generate admin page (simple redirect to Netlify Identity)
+  // Generate admin login page with password protection
   const adminDir = path.join(distDir, 'admin');
   if (!fs.existsSync(adminDir)) {
     fs.mkdirSync(adminDir, { recursive: true });
@@ -129,24 +129,168 @@ async function generateStaticSite() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Basti Ki Pathshala Foundation</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <title>Admin Login - Basti Ki Pathshala Foundation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #ffcd05, #f7b500);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #1e3a8a;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        p {
+            color: #6b7280;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        input:focus {
+            outline: none;
+            border-color: #ffcd05;
+            box-shadow: 0 0 0 3px rgba(255, 205, 5, 0.1);
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #ffcd05;
+            color: #1e3a8a;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #f7b500;
+        }
+        .error {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+        .info {
+            background: #f0f9ff;
+            border: 1px solid #bfdbfe;
+            color: #1e40af;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div id="admin-app">
-        <h1>Admin Panel</h1>
-        <p>Please log in to access the admin panel.</p>
-        <div data-netlify-identity-menu></div>
+    <div class="login-container">
+        <h1>🎓 Admin Panel</h1>
+        <p>Basti Ki Pathshala Foundation</p>
+        
+        <div class="info">
+            <strong>Default Password:</strong> admin123
+        </div>
+        
+        <form id="login-form">
+            <div class="form-group">
+                <label for="password">Admin Password</label>
+                <input type="password" id="password" name="password" autofocus placeholder="Enter admin password">
+            </div>
+            <button type="submit">Log In</button>
+            <div class="error" id="error"></div>
+        </form>
     </div>
+
     <script>
-        if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", user => {
-                if (!user) {
-                    window.netlifyIdentity.on("login", () => {
-                      document.location.href = "/public/admin/dashboard.html";
-                    });
+        const MAX_ATTEMPTS = 5;
+        const LOCKOUT_TIME = 15 * 60 * 1000; // 15 minutes
+        
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const error = document.getElementById('error');
+            
+            // Check lockout
+            const lastAttempt = JSON.parse(localStorage.getItem('admin_lockout') || '{}');
+            if (lastAttempt.count >= MAX_ATTEMPTS) {
+                const elapsed = Date.now() - lastAttempt.time;
+                if (elapsed < LOCKOUT_TIME) {
+                    const remaining = Math.ceil((LOCKOUT_TIME - elapsed) / 1000 / 60);
+                    error.textContent = 'Too many failed attempts. Try again in ' + remaining + ' minutes.';
+                    error.style.display = 'block';
+                    return;
+                } else {
+                    localStorage.removeItem('admin_lockout');
                 }
-            });
+            }
+            
+            // Verify password with API
+            try {
+                const response = await fetch('/.netlify/functions/api/auth', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.token) {
+                        sessionStorage.setItem('admin_token', data.token);
+                        window.location.href = '/public/admin/dashboard.html?t=' + data.token;
+                    }
+                } else {
+                    throw new Error('Invalid password');
+                }
+            } catch (err) {
+                error.textContent = 'Invalid password. Please try again.';
+                error.style.display = 'block';
+                
+                // Track failed attempts
+                const lockout = JSON.parse(localStorage.getItem('admin_lockout') || '{\"count\": 0}');
+                lockout.count = (lockout.count || 0) + 1;
+                lockout.time = Date.now();
+                localStorage.setItem('admin_lockout', JSON.stringify(lockout));
+                
+                document.getElementById('password').value = '';
+                document.getElementById('password').focus();
+            }
+        });
+        
+        // Auto-login if token exists in session
+        const existingToken = sessionStorage.getItem('admin_token');
+        if (existingToken) {
+            window.location.href = '/public/admin/dashboard.html?t=' + existingToken;
         }
     </script>
 </body>
