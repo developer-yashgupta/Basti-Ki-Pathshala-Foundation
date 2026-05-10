@@ -1,9 +1,10 @@
+// Simple static site build for PUBLIC pages only
+// Admin panel is served by Express server, not static
 const fs = require('fs');
 const path = require('path');
 const ejs = require('ejs');
 const { marked } = require('marked');
 
-// Create dist directory
 const distDir = path.join(__dirname, 'dist');
 fs.rmSync(distDir, { recursive: true, force: true });
 fs.mkdirSync(distDir, { recursive: true });
@@ -114,7 +115,7 @@ async function generateStaticSite() {
 
   if (generationErrors.length > 0) {
     generationErrors.forEach(err => console.error(err));
-    throw new Error('Static site generation failed. See errors above.');
+    throw new Error('Public page generation failed. Admin pages are served by Express. See errors above.');
   }
 
   // Generate admin login page with password protection

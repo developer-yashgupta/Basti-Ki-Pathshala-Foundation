@@ -6,6 +6,11 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# NOTE: This app is an Express.js server, NOT a Netlify static site
+# For Netlify deployment, you need to use a platform that supports Node.js
+# Recommended: Render.com, Railway.app, Heroku, or DigitalOcean App Platform
+# For local development: run 'npm start' instead
+
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
