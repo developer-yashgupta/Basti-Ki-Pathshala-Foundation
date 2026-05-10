@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const express = require('express');
 const session = require('express-session');
+const FileStore = require('session-file-store')(session);
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -32,13 +33,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 
-// Sessions (MemoryStore for simplicity; swap to SQLite store later if needed)
+// Sessions with file-based store (production-ready)
+const sessionDir = path.join(__dirname, '..', 'data', 'sessions');
+if (!fs.existsSync(sessionDir)) fs.mkdirSync(sessionDir, { recursive: true });
+
 app.use(
   session({
+    store: new FileStore({ path: sessionDir }),
     secret: process.env.SESSION_SECRET || 'change-this-secret',
     resave: false,
     saveUninitialized: false,
-    cookie: { httpOnly: true, sameSite: 'lax' },
+    cookie: { httpOnly: true, sameSite: 'lax', secure: process.env.NODE_ENV === 'production' },
   })
 );
 
