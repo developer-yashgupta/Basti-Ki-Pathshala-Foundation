@@ -1284,3 +1284,125 @@ git push origin feature/your-feature
 - Help review others' code
 
 ## 📄 License & Attribution
+
+### **Project License**
+This project is licensed under the **MIT License** - see the LICENSE file for details.
+
+```
+MIT License
+
+Copyright (c) 2025 Basti Ki Pathshala Foundation
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+```
+
+### **Acknowledgments**
+
+- **Basti Ki Pathshala Foundation Team** - Dedicated educators and administrators
+- **Student & Community Members** - Our impact comes from you
+- **Partner Organizations** - Supporting our mission
+- **Open Source Community** - Built with Node.js, Express, EJS, and lowdb
+
+### **Asset Attribution**
+
+- **Icons**: System icons used are free and open source
+- **Fonts**: Google Fonts (Yeseva One, System Fonts)
+- **Color Palette**: Custom design by the foundation
+- **Framework**: Express.js and Node.js community
+
+---
+
+## 🎓 Final Notes
+
+### **About the Codebase**
+
+This application was built with simplicity and educational value in mind. It serves as both:
+1. **A production tool** for managing the foundation's operations
+2. **A learning resource** for developers interested in full-stack JavaScript
+
+### **For Developers Contributing**
+
+- The codebase is intentionally straightforward for readability
+- Comments explain design decisions where helpful
+- Follows Node.js and Express.js best practices
+- Perfect for learning or starting your own similar project
+
+### **For Foundation Staff**
+
+- Focus on content creation and community engagement
+- Don't worry about technical details - the app handles them
+- Regular backups of `data/db.json` recommended
+- Contact development team for customization needs
+
+### **For Visitors & Supporters**
+
+Thank you for visiting Basti Ki Pathshala Foundation's website. Whether you're:
+- 📚 Learning about our programs
+- 🤝 Interested in volunteering
+- 💝 Wanting to donate
+- 📞 Looking to partner with us
+
+We appreciate your support in **transforming lives through education**!
+
+---
+
+## 🚀 Quick Reference
+
+| Task | Command |
+|------|---------|
+| Start the app | `npm start` |
+| Access public site | `http://localhost:3000` |
+| Access admin panel | `http://localhost:3000/admin` |
+| Admin login | `admin@bastikipathshala.local` / `admin123` |
+| Stop the server | `Ctrl + C` |
+| View database | `cat data/db.json` |
+| Reset database | `rm data/db.json` then `npm start` |
+| Build static pages | `npm run build` |
+
+---
+
+**Questions? Issues? Ideas?**
+
+1. **Check the Troubleshooting section** above
+2. **Review the database schema** for data structure questions
+3. **Read the code comments** in `/server/routes/` for logic details
+4. **Contact the development team** for complex issues
+
+---
+
+## 📞 Contact & Support
+
+**Basti Ki Pathshala Foundation**
+
+- 🌐 Website: Check the deployed site
+- 📧 Email: Contact via the website contact form
+- 🤝 Volunteers: Apply via the website
+- 💝 Donations: Pledge via the website
+
+**Development Support**
+
+For technical issues or questions about this repository:
+1. Check this README thoroughly
+2. Search GitHub issues for similar problems
+3. Create a new issue with detailed description
+
+---
+
+**Happy development! 🎉**
+
+*Built with ❤️ for education and community empowerment*
+
+Last Updated: 2025-08-08
+Documentation Version: 2.0
