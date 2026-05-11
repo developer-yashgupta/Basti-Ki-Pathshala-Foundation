@@ -5,6 +5,5 @@ yarn-debug.log*
 yarn-error.log*
 .env
 public/uploads/
-data/sessions/
 dist/
 .netlify/
