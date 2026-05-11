@@ -41,7 +41,7 @@ router.post('/login', async (req, res) => {
   const ok = bcrypt.compareSync(password, user.password_hash);
   if (!ok) return res.render('admin/login', { title: 'Admin Login', error: 'Invalid credentials' });
   req.session.user = { id: user.id, email: user.email, role: user.role };
-  res.redirect('/admin');
+  res.redirect(303, '/admin');
 });
 
 router.post('/logout', (req, res) => {
