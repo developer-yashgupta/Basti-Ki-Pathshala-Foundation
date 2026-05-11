@@ -40,43 +40,21 @@ router.post('/login', async (req, res) => {
   if (!user) return res.render('admin/login', { title: 'Admin Login', error: 'Invalid credentials' });
   const ok = bcrypt.compareSync(password, user.password_hash);
   if (!ok) return res.render('admin/login', { title: 'Admin Login', error: 'Invalid credentials' });
+  
   req.session.user = { id: user.id, email: user.email, role: user.role };
-  req.session.save(async (err) => {
+  
+  // Ensure session is saved before redirecting
+  req.session.save((err) => {
     if (err) {
       console.error('Session save error:', err);
-      return res.render('admin/login', { title: 'Admin Login', error: 'Session error, please try again' });
+      return res.render('admin/login', { title: 'Admin Login', error: 'Session error. Please try again.' });
     }
-    // Load dashboard data and render it directly (avoids redirect issues)
-    try {
-      const [programs, posts, events, volunteers, pledges] = await Promise.all([
-        findAll('programs'),
-        findAll('posts'),
-        findAll('events'),
-        findAll('volunteers'),
-        findAll('donation_pledges')
-      ]);
-      const counts = {
-        programs: programs.length,
-        posts: posts.length,
-        events: events.length,
-        volunteers: volunteers.length,
-        pledges: pledges.length,
-      };
-      res.render('admin/dashboard', { title: 'Admin Dashboard', counts, isAdmin: true });
-    } catch (error) {
-      console.error('Dashboard error:', error);
-      res.status(500).send('Internal server error');
-    }
+    res.redirect(303, '/admin');
   });
 });
 
 router.post('/logout', (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error('Session destroy error:', err);
-    }
-    res.redirect('/');
-  });
+  req.session.destroy(() => res.redirect('/'));
 });
 
 router.use(requireAuth());
