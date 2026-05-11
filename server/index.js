@@ -12,6 +12,7 @@ const { marked } = require('marked');
 
 const { db, ensureAdminSeed } = require('./lib/db');
 const { attachLocals } = require('./lib/middleware');
+const LowDBSessionStore = require('./lib/session-store');
 
 const publicRoutes = require('./routes/public');
 const adminRoutes = require('./routes/admin');
@@ -32,13 +33,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 
-// Sessions with MemoryStore (for development)
-// Note: For production with multiple processes/servers, use a persistent store like:
-// - connect-mongo (MongoDB)
-// - connect-pg-simple (PostgreSQL)
-// - session-file-store (File-based, has issues with distributed systems)
+// Sessions with lowdb persistence (works on Render and production)
 app.use(
   session({
+    store: new LowDBSessionStore(),
     secret: process.env.SESSION_SECRET || 'change-this-secret',
     resave: false,
     saveUninitialized: false,
