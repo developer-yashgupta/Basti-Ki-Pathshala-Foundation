@@ -5,7 +5,6 @@ const path = require('path');
 const fs = require('fs');
 const express = require('express');
 const session = require('express-session');
-const FileStore = require('session-file-store')(session);
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -33,13 +32,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 
-// Sessions with file-based store (production-ready)
-const sessionDir = path.join(__dirname, '..', 'data', 'sessions');
-if (!fs.existsSync(sessionDir)) fs.mkdirSync(sessionDir, { recursive: true });
-
+// Sessions with MemoryStore (for development)
+// Note: For production with multiple processes/servers, use a persistent store like:
+// - connect-mongo (MongoDB)
+// - connect-pg-simple (PostgreSQL)
+// - session-file-store (File-based, has issues with distributed systems)
 app.use(
   session({
-    store: new FileStore({ path: sessionDir }),
     secret: process.env.SESSION_SECRET || 'change-this-secret',
     resave: false,
     saveUninitialized: false,
